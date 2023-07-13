@@ -218,10 +218,6 @@ msgstr "进食恢复更多生命"
 msgid "learned to make the most of food"
 msgstr "学会充分消化食物"
 
-#: script/engine.js:138
-msgid "get the app."
-msgstr "应用商店"
-
 #: script/engine.js:144 script/engine.js:516
 msgid "lights off."
 msgstr "夜间模式"
