@@ -4,8 +4,8 @@ div#buildBtns {
 	left: 0px;
 }
 
-div#buildBtns:before, div#craftBtns:before, div#buyBtns:before {
-	content: attr(data-legend);
+div#buildBtns:before {
+	content: "建造/制作:";
 	position: relative;
 	top: -5px;
 }
@@ -16,10 +16,22 @@ div#craftBtns {
 	left: 150px;
 }
 
+div#craftBtns:before {
+	content: "生产/制作:";
+	position: relative;
+	top: -5px;
+}
+
 div#buyBtns {
 	position: absolute;
 	top: 50px;
 	left: 300px;
+}
+
+div#buyBtns:before {
+	content: "购买:";
+	position: relative;
+	top: -5px;
 }
 
 div#storesContainer {
@@ -28,17 +40,8 @@ div#storesContainer {
 	right: 0px;
 }
 
-div#stores:before, div#weapons:before {
-	position: absolute;
-	background: white;
-	content: attr(data-legend);
-	left: 8px;
-	top: -13px;
-}
-
 div#stores {
 	position: relative;
-	z-index:10;
 	border: 1px solid black;
 	cursor: default;
 	padding: 5px 10px;
@@ -49,6 +52,14 @@ div.storeRow {
 	position: relative;
 }
 
+div#stores:before {
+	position: absolute;
+	background: white;
+	content: "储藏室";
+	left: 8px;
+	top: -13px;	
+}
+
 div#weapons {
 	margin-top: 15px;
 	position: relative;
@@ -57,4 +68,12 @@ div#weapons {
 	cursor: default;
 	padding: 5px 10px;
 	width: 200px;
+}
+
+div#weapons:before {
+	position: absolute;
+	background: white;
+	content: "军械库";
+	left: 8px;
+	top: -13px;	
 }

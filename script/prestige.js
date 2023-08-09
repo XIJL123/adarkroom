@@ -9,30 +9,30 @@ var Prestige = {
 	},
 	
 	storesMap: [
-		{ store: 'wood', type: 'g' },
-		{ store: 'fur', type: 'g' },
-		{ store: 'meat', type: 'g' },
-		{ store: 'iron', type: 'g' },
-		{ store: 'coal', type: 'g' },
-		{ store: 'sulphur', type: 'g' },
-		{ store: 'steel', type: 'g' },
-		{ store: 'cured meat', type: 'g' },
-		{ store: 'scales', type: 'g' },
-		{ store: 'teeth', type: 'g' },
-		{ store: 'leather', type: 'g' },
-		{ store: 'bait', type: 'g' },
-		{ store: 'torch', type: 'g' },
-		{ store: 'cloth', type: 'g' },
-		{ store: 'bone spear', type: 'w' },
-		{ store: 'iron sword', type: 'w' },
-		{ store: 'steel sword', type: 'w' },
-		{ store: 'bayonet', type: 'w' },
-		{ store: 'rifle', type: 'w' },
-		{ store: 'laser rifle', type: 'w' },
-		{ store: 'bullets', type: 'a' },
-		{ store: 'energy cell', type: 'a' },
-		{ store: 'grenade', type: 'a' },
-		{ store: 'bolas', type: 'a' }
+		{ store: '木头', type: 'g' },
+		{ store: '毛皮', type: 'g' },
+		{ store: '肉', type: 'g' },
+		{ store: '铁', type: 'g' },
+		{ store: '煤', type: 'g' },
+		{ store: '硫磺', type: 'g' },
+		{ store: '钢', type: 'g' },
+		{ store: '腌肉', type: 'g' },
+		{ store: '鳞片', type: 'g' },
+		{ store: '牙齿', type: 'g' },
+		{ store: '皮革', type: 'g' },
+		{ store: '诱饵', type: 'g' },
+		{ store: '火炬', type: 'g' },
+		{ store: '布匹', type: 'g' },
+		{ store: '骨枪', type: 'w' },
+		{ store: '铁剑', type: 'w' },
+		{ store: '钢剑', type: 'w' },
+		{ store: '刺刀', type: 'w' },
+		{ store: '步枪', type: 'w' },
+		{ store: '镭射枪', type: 'w' },
+		{ store: '子弹', type: 'a' },
+		{ store: '燃料电池', type: 'a' },
+		{ store: '手雷', type: 'a' },
+		{ store: '链球', type: 'a' }
 	],
 	
 	getStores: function(reduce) {
@@ -40,8 +40,8 @@ var Prestige = {
 		
 		for(var i in this.storesMap) {
 			var s = this.storesMap[i];
-			stores.push(Math.floor($SM.get('stores["' + s.store + '"]', true) / 
-					(reduce ? this.randGen(s.type) : 1)));
+			stores.push($SM.get('stores["' + s.store + '"]', true) / 
+					(reduce ? this.randGen(s.type) : 1));
 		}
 		
 		return stores;
@@ -80,24 +80,16 @@ var Prestige = {
 	},
 
 	randGen : function(storeType) {
-		var amount;
 		switch(storeType) {
 		case 'g':
-			amount = Math.floor(Math.random() * 10);
-			break;
+			return Math.floor(Math.random() * 10);
 		case 'w':
-			amount = Math.floor(Math.floor(Math.random() * 10) / 2);
-			break;
+			return Math.floor(Math.floor(Math.random() * 10) / 2);
 		case 'a':
-			amount = Math.ceil(Math.random() * 10 * Math.ceil(Math.random() * 10));
-			break;
+			return Math.ceil(Math.random() * 10 * Math.ceil(Math.random() * 10));
 		default:
 			return 1;
 		}
-		if (amount !== 0) {
-			return amount;
-		}
-		return 1;
 	}
 
 };

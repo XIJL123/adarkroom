@@ -2,16 +2,16 @@
  * Events that only occur at specific times. Launched manually.
  **/
 Events.Setpieces = {
-	"outpost": { /* Friendly Outpost */
-		title: _('An Outpost'),
+	"哨站": { /* Friendly Outpost */
+		title: '一个前哨战(友善)',
 		scenes: {
 			'start': {
 				text: [
-					_('a safe place in the wilds.')
+					'一个庇护所.'
 				],
-				notification: _('a safe place in the wilds.'),
+				notification: '一个野外的庇护所.',
 				loot: {
-					'cured meat': {
+					'腌肉': {
 						min: 5,
 						max: 10,
 						chance: 1
@@ -22,90 +22,87 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			}
-		},
-		audio: AudioLibrary.LANDMARK_FRIENDLY_OUTPOST
+		}
 	},
-	"swamp": { /* Swamp */
-		title: _('A Murky Swamp'),
+	"沼泽": { /* Swamp */
+		title: '一个烟雾迷茫的沼泽',
 		scenes: {
 			'start': {
 				text: [
-					_('rotting reeds rise out of the swampy earth.'),
-					_('a lone frog sits in the muck, silently.')
+					'腐烂的芦苇漂浮在沼泽上.',
+					'一个孤单的青蛙静静的蹲坐在淤泥上.'
 				],
-				notification: _('a swamp festers in the stagnant air.'),
+				notification: '污浊溃烂的气息弥漫在空气中.',
 				buttons: {
 					'enter': {
-						text: _('enter'),
+						text: '进入',
 						nextScene: {1: 'cabin'}
 					},
 					'leave': {
-						text: _('leave'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			},
 			'cabin': {
 				text: [
-					_('deep in the swamp is a moss-covered cabin.'),
-					_('an old wanderer sits inside, in a seeming trance.')
+					'沼泽深处有一个覆满苔藓的小屋.',
+					'一个年老的流浪汉在里面, 看似精神恍惚.'
 				],
 				buttons: {
 					'talk': {
-						cost: {'charm': 1},
-						text: _('talk'),
+						cost: {'护身符': 1},
+						text: '对话',
 						nextScene: {1: 'talk'}
 					},
 					'leave': {
-						text: _('leave'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			},
 			'talk': {
 				text: [
-					_('the wanderer takes the charm and nods slowly.'),
-					_('he speaks of once leading the great fleets to fresh worlds.'),
-					_('unfathomable destruction to fuel wanderer hungers.'),
-					_('his time here, now, is his penance.')
+					'流浪者点头拿过了护身符.',
+					'他说有一次带领着一个大团队抵达了一个新世界.',
+					'但是未知事物带来的破坏毁灭了那个团队, 剩余的人忍饥挨饿痛苦异常.',
+					'现在轮到他了, 流落在这里深深的忏悔....'
 				],
 				onLoad: function() {
-					$SM.addPerk('gastronome');
+					$SM.addPerk('九阳神功');
 					World.markVisited(World.curPos[0], World.curPos[1]);
 				},
 				buttons: {
 					'leave': {
-						text: _('leave'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			}
-		},
-		audio: AudioLibrary.LANDMARK_SWAMP
+		}
 	},
-	"cave": { /* Cave */
-		title: _('A Damp Cave'),
+	"洞穴": { /* Cave */
+		title: '一个潮湿的洞穴',
 		scenes: {
 			'start': {
 				text: [
-					_('the mouth of the cave is wide and dark.'),
-					_("can't see what's inside.")
+					'洞穴的入口宽而深.',
+					"无法看清内部的清醒."
 				],
-				notification: _('the earth here is split, as if bearing an ancient wound'),
+				notification: '这里的地面到处都是裂痕, 就好像一条条古老的大地伤痕',
 				buttons: {
-					'enter': {
-						text: _('go inside'),
-						cost: { torch: 1 },
+					'enter': {	
+						text: '进入一探',
+						cost: { '火炬': 1 }, //tim mark in case of bug
 						nextScene: {0.3: 'a1', 0.6: 'a2', 1: 'a3'}
 					},
 					'leave': {
-						text: _('leave'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
@@ -113,20 +110,20 @@ Events.Setpieces = {
 			
 			'a1': {
 				combat: true,
-				enemy: 'beast',
-				chara: 'R',
+				enemy: '野兽',
+				chara: 'B',
 				damage: 1,
 				hit: 0.8,
 				attackDelay: 1,
 				health: 5,
-				notification: _('a startled beast defends its home'),
+				notification: '一头受惊的野兽正要捍卫自己的巢穴',
 				loot: {
-					'fur': {
+					'毛皮': {
 						min: 1,
 						max: 10,
 						chance: 1
 					},
-					'teeth': {
+					'牙齿': {
 						min: 1,
 						max: 5,
 						chance: 0.8
@@ -134,144 +131,137 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {0.5: 'b1', 1: 'b2'}
 					},
 					'leave': {
-						text: _('leave cave'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开洞穴',
 						nextScene: 'end'
 					}
 				}
 			},
 			'a2': {
 				text: [
-					_('the cave narrows a few feet in.'),
-					_("the walls are moist and moss-covered")
+					'洞穴已经小的没有落脚之地了.',
+					"墙壁很潮湿并覆满了苔藓"
 				],
 				buttons: {
-					'continue': {
-						text: _('squeeze'),
+					'continue': {	
+						text: '挤进去',
 						nextScene: {0.5: 'b2', 1: 'b3'}
 					},
 					'leave': {
-						text: _('leave cave'),
+						text: '离开洞穴',
 						nextScene: 'end'
 					}
 				}
 			},
 			'a3': {
 				text: [
-					_('the remains of an old camp sits just inside the cave.'),
-					_('bedrolls, torn and blackened, lay beneath a thin layer of dust.')
+			       '一个老旧的营地呈现在你面前.',
+			       '灰黑的睡袋被褥都撕裂开了, 布满了灰尘.'
 				],
 				loot: {
-					'cured meat': {
+					'腌肉': {
 						min: 1,
 						max: 5,
 						chance: 1
 					},
-					'torch': {
+					'火炬': {
 						min: 1,
 						max: 5,
 						chance: 0.5
 					},
-					'leather': {
+					'皮革': {
 						min: 1,
 						max: 5,
 						chance: 0.3
 					}
 				},
 				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+					'continue': {	
+						text: '继续前进',
 						nextScene: {0.5: 'b3', 1: 'b4'}
 					},
 					'leave': {
-						text: _('leave cave'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开洞穴',
 						nextScene: 'end'
 					}
 				}
 			},
 			'b1': {
 				text: [
-					_('the body of a wanderer lies in a small cavern.'),
-					_("rot's been to work on it, and some of the pieces are missing."),
-                    /// TRANSLATORS : 'it' is a rotting wanderer's body
-					_("can't tell what left it here.")
+			       '一个流浪者的尸体躺在一个小穴里面.',
+			       "尸体高度腐烂, 一些肢体已经不见了.",
+			       "鬼知道还剩下些什么有用东西."
 				],
 				loot: {
-					'iron sword': {
+					'铁剑': {
 						min: 1,
 						max: 1,
 						chance: 1
 					},
-					'cured meat': {
+					'腌肉': {
 						min: 1,
 						max: 5,
 						chance: 0.8
 					},
-					'torch': {
+					'火炬': {
 						min: 1,
 						max: 3,
 						chance: 0.5
 					},
-					'medicine': {
-					min: 1,
-					max: 2,
-					chance: 0.1
+					'医疗药剂': {
+					  min: 1,
+					  max: 2,
+					  chance: 0.1
 					}
 				},
 				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+					'continue': {	
+						text: '继续前进',
 						nextScene: { 1: 'c1' }
 					},
 					'leave': {
-						text: _('leave cave'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开洞穴',
 						nextScene: 'end'
 					}
 				}
 			},
 			'b2': {
 				text: [
-					_('the torch sputters and dies in the damp air'),
-					_('the darkness is absolute')
-				],
-				notification: _('the torch goes out'),
+			       '火炬熄灭在潮湿的空气中',
+			       '黑暗再度来袭'
+			    ],
+				notification: '火炬熄灭了',
 				buttons: {
-					'continue': {
-						text: _('continue'),
-						cost: {'torch': 1},
+					'continue': {	
+						text: '继续前进',
+						cost: {'火炬': 1},
 						nextScene: { 1: 'c1' }
 					},
 					'leave': {
-						text: _('leave cave'),
+						text: '离开洞穴',
 						nextScene: 'end'
 					}
 				}
 			},
 			'b3': {
 				combat: true,
-				enemy: 'beast',
-				chara: 'R',
+				enemy: '野兽',
+				chara: 'B',
 				damage: 1,
 				hit: 0.8,
 				attackDelay: 1,
 				health: 5,
-				notification: _('a startled beast defends its home'),
+				notification: '一个受惊的野兽正要保护它的巢穴',
 				loot: {
-					'fur': {
+					'毛皮': {
 						min: 1,
 						max: 3,
 						chance: 1
 					},
-					'teeth': {
+					'牙齿': {
 						min: 1,
 						max: 2,
 						chance: 0.8
@@ -279,33 +269,31 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {1: 'c2'}
 					},
 					'leave': {
-						text: _('leave cave'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开洞穴',
 						nextScene: 'end'
 					}
 				}
 			},
 			'b4': {
 				combat: true,
-				enemy: 'cave lizard',
-				chara: 'R',
+				enemy: '洞穴蜥蜴',
+				chara: 'L',
 				damage: 3,
 				hit: 0.8,
 				attackDelay: 2,
 				health: 6,
-				notification: _('a cave lizard attacks'),
+				notification: '一头洞穴蜥蜴向你攻击',
 				loot: {
-					'scales': {
+					'鳞片': {
 						min: 1,
 						max: 3,
 						chance: 1
 					},
-					'teeth': {
+					'牙齿': {
 						min: 1,
 						max: 2,
 						chance: 0.8
@@ -313,33 +301,31 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {1: 'c2'}
 					},
 					'leave': {
-						text: _('leave cave'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开洞穴',
 						nextScene: 'end'
 					}
 				}
 			},
 			'c1': {
 				combat: true,
-				enemy: 'beast',
-				chara: 'R',
+				enemy: '野兽',
+				chara: 'B',
 				damage: 3,
 				hit: 0.8,
 				attackDelay: 2,
 				health: 10,
-				notification: _('a large beast charges out of the dark'),
+				notification: '一头巨大的野兽冲出黑暗',
 				loot: {
-					'fur': {
+					'毛皮': {
 						min: 1,
 						max: 3,
 						chance: 1
 					},
-					'teeth': {
+					'牙齿': {
 						min: 1,
 						max: 3,
 						chance: 1
@@ -347,33 +333,31 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {0.5: 'end1', 1: 'end2'}
 					},
 					'leave': {
-						text: _('leave cave'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开洞穴',
 						nextScene: 'end'
 					}
 				}
 			},
 			'c2': {
 				combat: true,
-				enemy: 'lizard',
-				chara: 'T',
+				enemy: '蜥蜴',
+				chara: 'L',
 				damage: 4,
 				hit: 0.8,
 				attackDelay: 2,
 				health: 10,
-				notification: _('a giant lizard shambles forward'),
+				notification: '一只巨大的蜥蜴躺在地上',
 				loot: {
-					'scales': {
+					'鳞片': {
 						min: 1,
 						max: 3,
 						chance: 1
 					},
-					'teeth': {
+					'牙齿': {
 						min: 1,
 						max: 3,
 						chance: 1
@@ -381,46 +365,44 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {0.7: 'end2', 1: 'end3'}
 					},
 					'leave': {
-						text: _('leave cave'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开洞穴',
 						nextScene: 'end'
 					}
 				}
 			},
 			'end1': {
 				text: [
-					_('the nest of a large animal lies at the back of the cave.')
+			       '一只大型动物的巢穴就在洞穴的后方.'
 				],
 				onLoad: function() {
 					World.clearDungeon();
 				},
 				loot: {
-					'meat': {
+					'肉': {
 						min: 5,
 						max: 10,
 						chance: 1
 					},
-					'fur': {
+					'毛皮': {
 						min: 5,
 						max: 10,
 						chance: 1
 					},
-					'scales': {
+					'鳞片': {
 						min: 5,
 						max: 10,
 						chance: 1
 					},
-					'teeth': {
+					'牙齿': {
 						min: 5,
 						max: 10,
 						chance: 1
 					},
-					'cloth': {
+					'布匹': {
 						min: 5,
 						max: 10,
 						chance: 0.5
@@ -428,51 +410,50 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave cave'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开洞穴',
 						nextScene: 'end'
 					}
 				}
 			},
 			'end2': {
 				text: [
-					_('a small supply cache is hidden at the back of the cave.')
-				],
-				loot: {
-					'cloth': {
+			       '一个小型供给点隐藏在洞穴后方.'
+		        ],
+		        loot: {
+					'布匹': {
 						min: 5,
 						max: 10,
 						chance: 1
 					},
-					'leather': {
+					'皮革': {
 						min: 5,
 						max: 10,
 						chance: 1
 					},
-					'iron': {
+					'铁': {
 						min: 5,
 						max: 10,
 						chance: 1
 					},
-					'cured meat': {
+					'腌肉': {
 						min: 5,
 						max: 10,
 						chance: 1
 					},
-					'steel': {
+					'钢': {
 						min: 5,
 						max: 10,
 						chance: 0.5
 					},
-					'bolas': {
+					'链球': {
 						min: 1,
 						max: 3,
 						chance: 0.3
 					},
-					'medicine': {
-						min: 1,
-						max: 4,
-						chance: 0.15
+					'医疗药剂': {
+					  min: 1,
+					  max: 4,
+					  chance: 0.15
 					}
 				},
 				onLoad: function() {
@@ -480,63 +461,60 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave cave'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开洞穴',
 						nextScene: 'end'
 					}
 				}
 			},
 			'end3': {
 				text: [
-					_('an old case is wedged behind a rock, covered in a thick layer of dust.')
-				],
-				loot: {
-					'steel sword': {
-						min: 1,
-						max: 1,
-						chance: 1
-					},
-					'bolas': {
-						min: 1,
-						max: 3,
-						chance: 0.5
-					},
-					'medicine': {
-						min: 1,
-						max: 3,
-						chance: 0.3
-					}
-				},
+			       '一个老旧的包裹嵌在石头后方, 满布灰尘.'
+		        ],
+		        loot: {
+		        	'钢剑': {
+		        		min: 1,
+		        		max: 1,
+		        		chance: 1
+		        	},
+		        	'链球': {
+		        		min: 1,
+		        		max: 3,
+		        		chance: 0.5
+		        	},
+    					'医疗药剂': {
+    					  min: 1,
+    					  max: 3,
+    					  chance: 0.3
+    					}
+		        },
 				onLoad: function() {
 					World.clearDungeon();
 				},
 				buttons: {
 					'leave': {
-						text: _('leave cave'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开洞穴',
 						nextScene: 'end'
 					}
 				}
 			}
-		},
-		audio: AudioLibrary.LANDMARK_CAVE
+		}
 	},
-	"town": { /* Town */
-		title: _('A Deserted Town'),
+	"小镇": { /* Town */
+		title: '一个沙漠小镇',
 		scenes: {
 			'start': {
 				text: [
-					_('a small suburb lays ahead, empty houses scorched and peeling.'),
-					_("broken streetlights stand, rusting. light hasn't graced this place in a long time.")
+					'一个小型社区坐落在前方, 房子都烧焦残破了.',
+					"路灯都破烂锈迹斑斑, 这个地方失去光明很旧了."
 				],
-				notification: _("the town lies abandoned, its citizens long dead"),
+				notification: "小镇废弃在前方, 里面的居民已经死了很久了",
 				buttons: {
-					'enter': {
-						text: _('explore'),
+					'enter': {	
+						text: '探索',
 						nextScene: {0.3: 'a1', 0.7: 'a3', 1: 'a2'}
 					},
 					'leave': {
-						text: _('leave'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
@@ -544,17 +522,17 @@ Events.Setpieces = {
 			
 			'a1': {
 				text: [
-					_("where the windows of the schoolhouse aren't shattered, they're blackened with soot."),
-					_('the double doors creak endlessly in the wind.')
+					"学校房屋的玻璃窗都没有碎掉, 但是都被熏黑了.",
+					'大门吱吱不停的摇曳在残风中.'
 				],
 				buttons: {
 					'enter': {
-						text: _('enter'),
+						text: '进入',
 						nextScene: {0.5: 'b1', 1: 'b2'},
-						cost: {torch: 1}
+						cost: {'火炬': 1}  //tim tag in case of bug
 					},
 					'leave': {
-						text: _('leave town'),
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
@@ -562,557 +540,532 @@ Events.Setpieces = {
 			
 			'a2': {
 				combat: true,
-				enemy: 'thug',
-				chara: 'E',
+				enemy: '暴徒',
+				chara: 'T',
 				damage: 4,
-				hit: 0.8,
-				attackDelay: 2,
-				health: 30,
-				loot: {
-					'cloth': {
-						min: 5,
-						max: 10,
-						chance: 0.8
-					},
-					'leather': {
-						min: 5,
-						max: 10,
-						chance: 0.8
-					},
-					'cured meat': {
+  				hit: 0.8,
+  				attackDelay: 2,
+  				health: 30,
+  				loot: {
+  					'布匹': {
+  						min: 5,
+  						max: 10,
+  						chance: 0.8
+  					},
+  					'皮革': {
+  						min: 5,
+  						max: 10,
+  						chance: 0.8
+  					},
+					'腌肉': {
 						min: 1,
 						max: 5,
 						chance: 0.5
 					}
-				},
-				notification: _('ambushed on the street.'),
+  				},
+  				notification: '街头有埋伏.',
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {0.5: 'b3', 1: 'b4'}
 					},
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'a3': {
 				text: [
-					_("a squat building up ahead."),
-					_('a green cross barely visible behind grimy windows.')
+					"前方有一坐建筑物.",
+					'在肮脏的窗子后面有一个绿十字.'
 				],
 				buttons: {
 					'enter': {
-						text: _('enter'),
+						text: '进入',
 						nextScene: {0.5: 'b5', 1: 'end5'},
-						cost: {torch: 1}
+						cost: {'火炬': 1} //tim mark, in case of bug
 					},
 					'leave': {
-						text: _('leave town'),
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'b1': {
 				text: [
-					_('a small cache of supplies is tucked inside a rusting locker.')
-				],
-				loot: {
-					'cured meat': {
-						min: 1,
-						max: 5,
-						chance: 1
-					},
-					'torch': {
-						min: 1,
-						max: 3,
-						chance: 0.8
-					},
-					'bullets': {
-						min: 1,
-						max: 5,
-						chance: 0.3
-					},
-					'medicine': {
-						min: 1,
-						max: 3,
-						chance: 0.05
-					}
-			},
-			buttons: {
+			       '生锈的锁柜里面有一些供给品.'
+			    ],
+			    loot: {
+			    	'腌肉': {
+			    		min: 1,
+			    		max: 5,
+			    		chance: 1
+			    	},
+			    	'火炬': {
+			    		min: 1,
+			    		max: 3,
+			    		chance: 0.8
+			    	},
+			    	'子弹': {
+			    		min: 1,
+			    		max: 5,
+			    		chance: 0.3
+			    	},
+  					'医疗药剂': {
+  					  min: 1,
+  					  max: 3,
+  					  chance: 0.05
+  					}
+		    	},
+		    	buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {0.5: 'c1', 1: 'c2'}
 					},
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'b2': {
 				combat: true,
-				enemy: 'scavenger',
-				chara: 'E',
+				enemy: '清道夫',
+				chara: 'S',
 				damage: 4,
-				hit: 0.8,
-				attackDelay: 2,
-				health: 30,
-				loot: {
-					'cloth': {
-						min: 5,
-						max: 10,
-						chance: 0.8
-					},
-					'leather': {
-						min: 5,
-						max: 10,
-						chance: 0.8
-					},
-					'cured meat': {
-						min: 1,
-						max: 5,
-						chance: 0.5
-					}
-				},
-				notification: _('a scavenger waits just inside the door.'),
+  				hit: 0.8,
+  				attackDelay: 2,
+  				health: 30,
+  				loot: {
+  					'布匹': {
+  						min: 5,
+  						max: 10,
+  						chance: 0.8
+  					},
+  					'皮革': {
+  						min: 5,
+  						max: 10,
+  						chance: 0.8
+  					},
+  					'腌肉': {
+  						min: 1,
+  						max: 5,
+  						chance: 0.5
+  					}
+  				},
+  				notification: '一个清道夫就在门里面.',
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {0.5: 'c2', 1: 'c3'}
 					},
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'b3': {
 				combat: true,
-				enemy: 'beast',
-				chara: 'R',
+				enemy: '野兽',
+				chara: 'B',
 				damage: 3,
-				hit: 0.8,
-				attackDelay: 1,
-				health: 25,
-				loot: {
-					'teeth': {
-						min: 1,
-						max: 5,
-						chance: 1
-					},
-					'fur': {
-						min: 5,
-						max: 10,
-						chance: 1
-					}
-				},
-				notification: _('a beast stands alone in an overgrown park.'),
+  				hit: 0.8,
+  				attackDelay: 1,
+  				health: 25,
+  				loot: {
+  					'牙齿': {
+  						min: 1,
+  						max: 5,
+  						chance: 1
+  					},
+  					'毛皮': {
+  						min: 5,
+  						max: 10,
+  						chance: 1
+  					}
+  				},
+  				notification: '有一头野兽坐在杂草丛生的公园内.',
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {0.5: 'c4', 1: 'c5'}
 					},
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'b4': {
 				text: [
-					_('an overturned caravan is spread across the pockmarked street.'),
-					_("it's been picked over by scavengers, but there's still some things worth taking.")
+			       '一个撞翻的大篷车中的物件洒落在整个街道.',
+			       "拾荒者已经扫荡过一遍了, 但是应该还找得到一些有用的东西."
 				],
 				loot: {
-					'cured meat': {
+					'腌肉': {
 						min: 1,
 						max: 5,
 						chance: 0.8
 					},
-					'torch': {
+					'火炬': {
 						min: 1,
 						max: 3,
 						chance: 0.5
 					},
-					'bullets': {
+					'子弹': {
 						min: 1,
 						max: 5,
 						chance: 0.3
 					},
-					'medicine': {
-						min: 1,
-						max: 3,
-						chance: 0.1
+					'医疗药剂': {
+					  min: 1,
+					  max: 3,
+					  chance: 0.1
 					}
 				},
 				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+					'continue': {	
+						text: '继续前进',
 						nextScene: {0.5: 'c5', 1: 'c6' }
 					},
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'b5': {
 				combat: true,
-				enemy: 'madman',
-				chara: 'E',
+				enemy: '疯徒',
+				chara: 'M',
 				damage: 6,
-				hit: 0.3,
-				attackDelay: 1,
-				health: 10,
-				loot: {
-					'cloth': {
-						min: 2,
-						max: 4,
-						chance: 0.3
-					},
-					'cured meat': {
-						min: 1,
-						max: 5,
-						chance: 0.9
-					},
-					'medicine': {
-						min: 1,
-						max: 2,
-						chance: 0.4
-					}
-				},
-				notification: _('a madman attacks, screeching.'),
+  				hit: 0.3,
+  				attackDelay: 1,
+  				health: 10,
+  				loot: {
+  					'布匹': {
+  						min: 2,
+  						max: 4,
+  						chance: 0.3
+  					},
+  					'腌肉': {
+  						min: 1,
+  						max: 5,
+  						chance: 0.9
+  					},
+  					'医疗药剂': {
+  						min: 1,
+  						max: 2,
+  						chance: 0.4
+  					}
+  				},
+  				notification: '一个疯子尖叫着攻击你.',
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {0.3: 'end5', 1: 'end6'}
 					},
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'c1': {
 				combat: true,
-				enemy: 'thug',
-				chara: 'E',
+				enemy: '暴徒',
+				chara: 'T',
 				damage: 4,
-				hit: 0.8,
-				attackDelay: 2,
-				health: 30,
-				loot: {
-					'cloth': {
-						min: 5,
-						max: 10,
-						chance: 0.8
-					},
-					'leather': {
-						min: 5,
-						max: 10,
-						chance: 0.8
-					},
-					'cured meat': {
+  				hit: 0.8,
+  				attackDelay: 2,
+  				health: 30,
+  				loot: {
+  					'布匹': {
+  						min: 5,
+  						max: 10,
+  						chance: 0.8
+  					},
+  					'皮革': {
+  						min: 5,
+  						max: 10,
+  						chance: 0.8
+  					},
+					'腌肉': {
 						min: 1,
 						max: 5,
 						chance: 0.5
 					}
-				},
-				notification: _('a thug moves out of the shadows.'),
+  				},
+  				notification: '一个暴徒走出了阴影.',
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {1: 'd1'}
 					},
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'c2': {
 				combat: true,
-				enemy: 'beast',
-				chara: 'R',
+				enemy: '野兽',
+				chara: 'B',
 				damage: 3,
-				hit: 0.8,
-				attackDelay: 1,
-				health: 25,
-				loot: {
-					'teeth': {
-						min: 1,
-						max: 5,
-						chance: 1
-					},
-					'fur': {
-						min: 5,
-						max: 10,
-						chance: 1
-					}
-				},
-				notification: _('a beast charges out of a ransacked classroom.'),
+  				hit: 0.8,
+  				attackDelay: 1,
+  				health: 25,
+  				loot: {
+  					'牙齿': {
+  						min: 1,
+  						max: 5,
+  						chance: 1
+  					},
+  					'毛皮': {
+  						min: 5,
+  						max: 10,
+  						chance: 1
+  					}
+  				},
+  				notification: '一头野兽冲突了已经空荡荡的教室.',
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {1: 'd1'}
 					},
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'c3': {
 				text: [
-					_('through the large gymnasium doors, footsteps can be heard.'),
-					_('the torchlight casts a flickering glow down the hallway.'),
-					_('the footsteps stop.')
-				],
-				buttons: {
-					'continue': {
-						text: _('enter'),
+			       '在通过体育馆大门的时候, 脚步声清晰可闻.',
+			       '火炬照亮了走廊.',
+			       '脚步声停了下来.'
+		        ],
+		        buttons: {
+			        'continue': {
+						text: '进入',
 						nextScene: {1: 'd1'}
 					},
 					'leave': {
-						text: _('leave town'),
+						text: '离开小镇',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			'c4': {
 				combat: true,
-				enemy: 'beast',
-				chara: 'R',
+				enemy: '野兽',
+				chara: 'B',
 				damage: 4,
-				hit: 0.8,
-				attackDelay: 1,
-				health: 25,
-				loot: {
-					'teeth': {
-						min: 1,
-						max: 5,
-						chance: 1
-					},
-					'fur': {
-						min: 5,
-						max: 10,
-						chance: 1
-					}
-				},
-				notification: _('another beast, draw by the noise, leaps out of a copse of trees.'),
+  				hit: 0.8,
+  				attackDelay: 1,
+  				health: 25,
+  				loot: {
+  					'牙齿': {
+  						min: 1,
+  						max: 5,
+  						chance: 1
+  					},
+  					'毛皮': {
+  						min: 5,
+  						max: 10,
+  						chance: 1
+  					}
+  				},
+  				notification: '通过噪声可以感觉到另外一头野兽, 在树林里面.',
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {1: 'd2'}
 					},
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'c5': {
 				text: [
-					_("something's causing a commotion a ways down the road."),
-					_("a fight, maybe.")
-				],
-				buttons: {
+			       "有什么事情在下边的路上引起了骚动.",
+			       "可能是战斗."
+		        ],
+		        buttons: {
 					'continue': {
-						text: _('continue'),
+						text: '继续前进',
 						nextScene: {1: 'd2'}
 					},
 					'leave': {
-						text: _('leave town'),
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'c6': {
 				text: [
-					_('a small basket of food is hidden under a park bench, with a note attached.'),
-					_("can't read the words.")
-				],
-				loot: {
-					'cured meat': {
-						min: 1,
-						max: 5,
-						chance: 1
-					}
-				},
-				buttons: {
+			       '一个装满食物的小篮子隐藏在公园的长椅下, 上面还有个纸条.',
+			       "看不懂写的什么."
+		        ],
+		        loot: {
+		        	'腌肉': {
+		        		min: 1,
+		        		max: 5,
+		        		chance: 1
+		        	}
+		        },
+		        buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {1: 'd2'}
 					},
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'd1': {
 				combat: true,
-				enemy: 'scavenger',
-				chara: 'E',
+				enemy: '清道夫',
+				chara: 'S',
 				damage: 5,
-				hit: 0.8,
-				attackDelay: 2,
-				health: 30,
-				loot: {
-					'cured meat': {
-						min: 1,
-						max: 5,
-						chance: 1
-					},
-					'leather': {
-						min: 5,
-						max: 10,
-						chance: 0.8
-					},
-					'steel sword': {
+  				hit: 0.8,
+  				attackDelay: 2,
+  				health: 30,
+  				loot: {
+  					'腌肉': {
+  						min: 1,
+  						max: 5,
+  						chance: 1
+  					},
+  					'皮革': {
+  						min: 5,
+  						max: 10,
+  						chance: 0.8
+  					},
+					'钢剑': {
 						min: 1,
 						max: 1,
 						chance: 0.5
 					}
-				},
-				notification: _('a panicked scavenger bursts through the door, screaming.'),
+  				},
+  				notification: '一个惊慌的清道夫尖叫着闯过了大门.',
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {0.5: 'end1', 1: 'end2'}
 					},
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'd2': {
 				combat: true,
-				enemy: 'vigilante',
-				chara: 'D',
+				enemy: '警员',
+				chara: 'V',
 				damage: 6,
-				hit: 0.8,
-				attackDelay: 2,
-				health: 30,
-				loot: {
-					'cured meat': {
-						min: 1,
-						max: 5,
-						chance: 1
-					},
-					'leather': {
-						min: 5,
-						max: 10,
-						chance: 0.8
-					},
-					'steel sword': {
-						min: 1,
-						max: 1,
-						chance: 0.5
-					}
-				},
-				notification: _("a man stands over a dead wanderer. notices he's not alone."),
+  				hit: 0.8,
+  				attackDelay: 2,
+  				health: 30,
+  				loot: {
+  					'腌肉': {
+  						min: 1,
+  						max: 5,
+  						chance: 1
+  					},
+  					'皮革': {
+  						min: 5,
+  						max: 10,
+  						chance: 0.8
+  					},
+  					'钢剑': {
+  						min: 1,
+  						max: 1,
+  						chance: 0.5
+  					}
+  				},
+  				notification: "一个男人站在死去的流浪汉边上, 意识到他不是唯一的人类.",
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {0.5: 'end3', 1: 'end4'}
 					},
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'end1': {
 				text: [
-					_('scavenger had a small camp in the school.'),
-					_('collected scraps spread across the floor like they fell from heaven.')
-				],
-				onLoad: function() {
+			       '清道夫有一个小营地在学校里面.',
+			       '收集的各种垃圾散落在地面上, 就好像是从天上下下来的.'
+		        ],
+		        onLoad: function() {
 					World.clearDungeon();
 				},
 				loot: {
-					'steel sword': {
+					'钢剑': {
 						min: 1,
 						max: 1,
 						chance: 1
 					},
-					'steel': {
+					'钢': {
 						min: 5,
 						max: 10,
 						chance: 1
 					},
-					'cured meat': {
+					'腌肉': {
 						min: 5,
 						max: 10,
 						chance: 1
 					},
-					'bolas': {
+					'链球': {
 						min: 1,
 						max: 5,
 						chance: 0.5
 					},
-					'medicine': {
-						min: 1,
-						max: 2,
-						chance: 0.3
+					'医疗药剂': {
+					  min: 1,
+					  max: 2,
+					  chance: 0.3
 					}
 				},
 				buttons: {
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'end2': {
 				text: [
-					_("scavenger'd been looking for supplies in here, it seems."),
-					_("a shame to let what he'd found go to waste.")
-				],
-				onLoad: function() {
+			       "清道夫似乎一直在寻找各种物资.",
+			       "不好意思, 我笑纳了."
+		        ],
+		        onLoad: function() {
 					World.clearDungeon();
 				},
 				loot: {
-					'coal': {
+					'煤': {
 						min: 5,
 						max: 10,
 						chance: 1
 					},
-					'cured meat': {
+					'腌肉': {
 						min: 5,
 						max: 10,
 						chance: 1
 					},
-					'leather': {
+					'皮革': {
 						min: 5,
 						max: 10,
 						chance: 1
@@ -1120,27 +1073,26 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'end3': {
 				text: [
-					_("beneath the wanderer's rags, clutched in one of its many hands, a glint of steel."),
-					_("worth killing for, it seems.")
-				],
-				onLoad: function() {
+			       "流浪汉身体下有一些东西, 手上也抓着很多, 闪闪发光.",
+			       "真值得一杀."
+		        ],
+		        onLoad: function() {
 					World.clearDungeon();
 				},
 				loot: {
-					'rifle': {
+					'步枪': {
 						min: 1,
 						max: 1,
 						chance: 1
 					},
-					'bullets': {
+					'子弹': {
 						min: 1,
 						max: 5,
 						chance: 1
@@ -1148,921 +1100,884 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'end4': {
 				text: [
-					_("eye for an eye seems fair."),
-					_("always worked before, at least."),
-					_("picking the bones finds some useful trinkets.")
-				],
-				onLoad: function() {
+			       "以牙还牙相当公平.",
+			       "无往而不利.",
+			       "骨头捡起来之后发现了一些小东西."
+		        ],
+		        onLoad: function() {
 					World.clearDungeon();
 				},
 				loot: {
-					'cured meat': {
+					'腌肉': {
 						min: 5,
 						max: 10,
 						chance: 1
 					},
-					'iron': {
+					'铁': {
 						min: 5,
 						max: 10,
 						chance: 1
 					},
-					'torch': {
+					'火炬': {
 						min: 1,
 						max: 5,
 						chance: 1
 					},
-					'bolas': {
+					'链球': {
 						min: 1,
 						max: 5,
 						chance: 0.5
 					},
-					'medicine': {
-					min: 1,
-					max: 2,
-					chance: 0.1
+					'医疗药剂': {
+					  min: 1,
+					  max: 2,
+					  chance: 0.1
 					}
 				},
 				buttons: {
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
 				}
 			},
 			'end5': {
 				text: [
-					_('some medicine abandoned in the drawers.')
-				],
-				onLoad: function() {
+			       '抽屉里面有一些治疗药剂.'
+		        ],
+		    onLoad: function() {
 					World.clearDungeon();
 				},
-				loot: {
-					'medicine': {
-						min: 2,
-						max: 5,
-						chance: 1
-					}
-				},
-				buttons: {
+        loot: {
+        	'医疗药剂': {
+        		min: 2,
+        		max: 5,
+        		chance: 1
+        	}
+        },
+        buttons: {
 					'leave': {
-						text: _('leave town'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开小镇',
 						nextScene: 'end'
 					}
-				}
+		    }
 			},
 			'end6': {
 				text: [
-					_('the clinic has been ransacked.'),
-					_('only dust and stains remain.')
-				],
-				onLoad: function() {
+			       '诊所已经被洗劫一空.',
+			       '只有污浊的尘土依旧.'
+		        ],
+		    onLoad: function() {
 					World.clearDungeon();
 				},
-				buttons: {
+        buttons: {
 					'leave': {
-						text: _('leave town'),
-
+						text: '离开小镇',
 						nextScene: 'end'
 					}
-				}
+		    }
 			}
-		},
-		audio: AudioLibrary.LANDMARK_TOWN
+		}
 	},
-	"city": { /* City */
-		title: _('A Ruined City'),
+	"城镇": { /* City */
+		title: '一座诅咒之城',
 		scenes: {
 			'start': {
 				text: [
-					_('a battered highway sign stands guard at the entrance to this once-great city.'),
-					_("the towers that haven't crumbled jut from the landscape like the ribcage of some ancient beast."),
-					_('might be things worth having still inside.')
+					'一个可怜的高速公路标志坐落在这座曾经的大城市的入口.',
+					"曾经壮观的高塔就好比是野兽的身体突出部位一般诡异.",
+					'可能有一些有用的东西在里面.'
 				],
-				notification: _("the towers of a decaying city dominate the skyline"),
+				notification: "一个破损的高塔指向天际",
 				buttons: {
-					'enter': {
-						text: _('explore'),
+					'enter': {	
+						text: '探索',
 						nextScene: {0.2: 'a1', 0.5: 'a2', 0.8: 'a3', 1: 'a4'}
 					},
 					'leave': {
-						text: _('leave'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			},
 			'a1': {
 				text:[
-					_('the streets are empty.'),
-					_('the air is filled with dust, driven relentlessly by the hard winds.')
-				],
-				buttons: {
-					'continue': {
-						text: _('continue'),
+				    '街道都是空的.',
+				    '空气飘满了灰尘, 任凭风吹雨打.'
+		        ],
+		        buttons: {
+					'continue': {	
+						text: '继续前进',
 						nextScene: {0.5: 'b1', 1: 'b2'}
 					},
 					'leave': {
-						text: _('leave city'),
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
 			},
 			'a2': {
 				text:[
-					_('orange traffic cones are set across the street, faded and cracked.'),
-					_('lights flash through the alleys between buildings.')
-				],
-				buttons: {
-					'continue': {
-						text: _('continue'),
+				    '橙色的交通警示标记平方在街道上, 不过都破烂得不行了.',
+				    '灯光闪烁在建筑的缝隙中.'
+		        ],
+		        buttons: {
+					'continue': {	
+						text: '继续前进',
 						nextScene: {0.5: 'b3', 1: 'b4'}
 					},
 					'leave': {
-						text: _('leave city'),
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
 			},
 			'a3': {
 				text: [
-					_('a large shanty town sprawls across the streets.'),
-					_('faces, darkened by soot and blood, stare out from crooked huts.')
-				],
-				buttons: {
-					'continue': {
-						text: _('continue'),
+			       '一直巨大的棚屋延绵穿过了街区.',
+			       '一张张灰黑布满血迹的脸从小破屋里面伸出来.'
+		        ],
+		        buttons: {
+					'continue': {	
+						text: '继续前进',
 						nextScene: {0.5: 'b5', 1: 'b6'}
 					},
 					'leave': {
-						text: _('leave city'),
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
 			},
 			'a4': {
 				text: [
-					_('the shell of an abandoned hospital looms ahead.')
-				],
-				buttons: {
-					'enter': {
-						text: _('enter'),
-						cost: { 'torch': 1 },
-						nextScene: {0.5: 'b7', 1: 'b8'}
-					},
+			       '一个废弃的医院坐落在前方.'
+		        ],
+        buttons: {
+          'enter': {
+            text: '进入',
+            cost: { '火炬': 1 },
+            nextScene: {0.5: 'b7', 1: 'b8'}
+          },
 					'leave': {
-						text: _('leave city'),
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+        }
 			},
 			'b1': {
 				text: [
-					_('the old tower seems mostly intact.'),
-					_('the shell of a burned out car blocks the entrance.'),
-					_('most of the windows at ground level are busted anyway.')
-				],
-				buttons: {
-					'enter': {
-						text: _('enter'),
+			       '塔的内部似乎保存完整.',
+			       '烧烂的汽车壳子挡住了入口.',
+			       '大多数的落地窗户被捣毁了.'
+		        ],
+		        buttons: {
+		        	'enter': {	
+						text: '进入',
 						nextScene: {0.5: 'c1', 1: 'c2'}
 					},
 					'leave': {
-						text: _('leave city'),
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			'b2': {
 				combat: true,
-				notification: _('a huge lizard scrambles up out of the darkness of an old metro station.'),
-				enemy: 'lizard',
-				chara: 'R',
+				notification: '一个巨大的蜥蜴打破了老地铁站的宁静.',
+				enemy: '蜥蜴',
+				chara: 'L',
 				damage: 5,
-				hit: 0.8,
-				attackDelay: 2,
-				health: 20,
-				loot: {
-					'scales': {
-						min: 5,
-						max: 10,
-						chance: 0.8
-					},
-					'teeth': {
-						min: 5,
-						max: 10,
-						chance: 0.5
-					},
-					'meat': {
-						min: 5,
-						max: 10,
-						chance: 0.8
-					}
-				},
-				buttons: {
-					'descend': {
-						text: _('descend'),
-						cooldown: Events._LEAVE_COOLDOWN,
+  				hit: 0.8,
+  				attackDelay: 2,
+  				health: 20,
+  				loot: {
+  					'鳞片': {
+  						min: 5,
+  						max: 10,
+  						chance: 0.8
+  					},
+  					'牙齿': {
+  						min: 5,
+  						max: 10,
+  						chance: 0.5
+  					},
+  					'肉': {
+  						min: 5,
+  						max: 10,
+  						chance: 0.8
+  					}
+  				},
+		        buttons: {
+		        	'descend': {	
+						text: '拜访',
 						nextScene: {0.5: 'c2', 1: 'c3'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			'b3': {
-				notification: _('the shot echoes in the empty street.'),
+				notification: '枪响在街道上产生回声.',
 				combat: true,
-				enemy: 'sniper',
-				chara: 'D',
-				damage: 15,
-				hit: 0.8,
-				attackDelay: 4,
-				health: 30,
+  				enemy: '狙击手',
+  				chara: 'S',
+  				damage: 15,
+  				hit: 0.8,
+  				attackDelay: 4,
+  				health: 30,
 				ranged: true,
-				loot: {
-					'cured meat': {
-						min: 1,
-						max: 5,
-						chance: 0.8
-					},
-					'bullets': {
+  				loot: {
+  					'腌肉': {
+  						min: 1,
+  						max: 5,
+  						chance: 0.8
+  					},
+					'子弹': {
 						min: 1,
 						max: 5,
 						chance: 0.5
 					},
-					'rifle': {
+					'步枪': {
 						min: 1,
 						max: 1,
 						chance: 0.2
 					}
-				},
-				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+  				},
+		        buttons: {
+		        	'continue': {	
+						text: '继续前进',
 						nextScene: {0.5: 'c4', 1: 'c5'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			'b4': {
-				notification: _('the soldier steps out from between the buildings, rifle raised.'),
+				notification: '士兵在建筑之间战斗, 奔跑和射击.',
 				combat: true,
-				enemy: 'soldier',
+  				enemy: '士兵',
 				ranged: true,
-				chara: 'D',
-				damage: 8,
-				hit: 0.8,
-				attackDelay: 2,
-				health: 50,
-				loot: {
-					'cured meat': {
-						min: 1,
-						max: 5,
-						chance: 0.8
-					},
-					'bullets': {
+  				chara: 'D',
+  				damage: 8,
+  				hit: 0.8,
+  				attackDelay: 2,
+  				health: 50,
+  				loot: {
+  					'腌肉': {
+  						min: 1,
+  						max: 5,
+  						chance: 0.8
+  					},
+					'子弹': {
 						min: 1,
 						max: 5,
 						chance: 0.5
 					},
-					'rifle': {
+					'步枪': {
 						min: 1,
 						max: 1,
 						chance: 0.2
 					}
-				},
-				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+  				},
+		        buttons: {
+		        	'continue': {	
+						text: '继续前进',
 						nextScene: {0.5: 'c5', 1: 'c6'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			'b5': {
-				notification: _('a frail man stands defiantly, blocking the path.'),
+				notification: '一个看上去挺斯文的人挡住去路并挑衅.',
 				combat: true,
-				enemy: 'frail man',
-				chara: 'E',
-				damage: 1,
-				hit: 0.8,
-				attackDelay: 2,
-				health: 10,
-				loot: {
-					'cured meat': {
-						min: 1,
-						max: 5,
-						chance: 0.8
-					},
-					'cloth': {
-						min: 1,
-						max: 5,
-						chance: 0.5
-					},
-					'leather': {
-						min: 1,
-						max: 1,
-						chance: 0.2
-					},
-					'medicine': {
-						min: 1,
-						max: 3,
-						chance: 0.05
-					}
-				},
-				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+  				enemy: '斯文禽兽',
+  				chara: 'M',
+  				damage: 1,
+  				hit: 0.8,
+  				attackDelay: 2,
+  				health: 10,
+  				loot: {
+  					'腌肉': {
+  						min: 1,
+  						max: 5,
+  						chance: 0.8
+  					},
+  					'布匹': {
+  						min: 1,
+  						max: 5,
+  						chance: 0.5
+  					},
+  					'皮革': {
+  						min: 1,
+  						max: 1,
+  						chance: 0.2
+  					},
+  					'医疗药剂': {
+  					  min: 1,
+  					  max: 3,
+  					  chance: 0.05
+  					}
+  				},
+		        buttons: {
+		        	'continue': {	
+						text: '继续前进',
 						nextScene: {0.5: 'c7', 1: 'c8'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			'b6': {
 				text: [
-					_('nothing but downcast eyes.'),
-					_('the people here were broken a long time ago.')
-				],
-				buttons: {
-					'continue': {
-						text: _('continue'),
+			       '除了低垂的眼帘.',
+			       '这个人很旧以前就被杀死了.'
+		        ],
+		        buttons: {
+		        	'continue': {	
+						text: '继续前进',
 						nextScene: {0.5: 'c8', 1: 'c9'}
 					},
 					'leave': {
-						text: _('leave city'),
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			'b7': {
 				text: [
-					_('empty corridors.'),
-					_('the place has been swept clean by scavengers.')
-				],
-				buttons: {
-					'continue': {
-						text: _('continue'),
+			       '空荡的走廊.',
+			       '清道夫已经把这搜刮干净了.'
+		        ],
+		    buttons: {
+		      'continue': {	
+						text: '继续前进',
 						nextScene: {0.3: 'c12', 0.7: 'c10', 1: 'c11'}
 					},
 					'leave': {
-						text: _('leave city'),
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		    }
 			},
 			'b8': {
-				notification: _('an old man bursts through a door, wielding a scalpel.'),
+				notification: '一个老人挥舞着手术刀冲了过来.',
 				combat: true,
-				enemy: 'old man',
-				chara: 'E',
-				damage: 3,
-				hit: 0.5,
-				attackDelay: 2,
-				health: 10,
-				loot: {
-					'cured meat': {
-						min: 1,
-						max: 3,
-						chance: 0.5
-					},
-					'cloth': {
-						min: 1,
-						max: 5,
-						chance: 0.8
-					},
-					'medicine': {
-						min: 1,
-						max: 2,
-						chance: 0.5
-					}
-				},
-				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
-						nextScene: {0.3: 'c13', 0.7: 'c11', 1: 'end15'}
-					},
-					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
-						nextScene: 'end'
-					}
-				}
+				enemy: '老家伙',
+  				chara: 'M',
+  				damage: 3,
+  				hit: 0.5,
+  				attackDelay: 2,
+  				health: 10,
+  				loot: {
+  					'腌肉': {
+  						min: 1,
+  						max: 3,
+  						chance: 0.5
+  					},
+  					'布匹': {
+  						min: 1,
+  						max: 5,
+  						chance: 0.8
+  					},
+  					'医疗药剂': {
+  					  min: 1,
+  					  max: 2,
+  					  chance: 0.5
+  					}
+  				},
+        buttons: {
+        	'continue': {	
+    				text: '继续前进',
+    				nextScene: {0.3: 'c13', 0.7: 'c11', 1: 'end15'}
+    			},
+    			'leave': {
+    				text: '离开城市',
+    				nextScene: 'end'
+    			}
+		    }
 			},
 			'c1': {
-				notification: _('a thug is waiting on the other side of the wall.'),
+				notification: '一个暴徒等在另外一边墙那.',
 				combat: true,
-				enemy: 'thug',
-				chara: 'E',
-				damage: 3,
-				hit: 0.8,
-				attackDelay: 2,
-				health: 30,
-				loot: {
-					'steel sword': {
-						min: 1,
-						max: 1,
-						chance: 0.5
-					},
-					'cured meat': {
-						min: 1,
-						max: 3,
-						chance: 0.5
-					},
-					'cloth': {
-						min: 1,
-						max: 5,
-						chance: 0.8
-					}
-				},
-				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+				enemy: '暴徒',
+  				chara: 'T',
+  				damage: 3,
+  				hit: 0.8,
+  				attackDelay: 2,
+  				health: 30,
+  				loot: {
+  					'钢剑': {
+  						min: 1,
+  						max: 1,
+  						chance: 0.5
+  					},
+  					'腌肉': {
+  						min: 1,
+  						max: 3,
+  						chance: 0.5
+  					},
+  					'布匹': {
+  						min: 1,
+  						max: 5,
+  						chance: 0.8
+  					}
+  				},
+		        buttons: {
+		        	'continue': {	
+						text: '继续前进',
 						nextScene: {0.5: 'd1', 1: 'd2'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			
 			'c2': {
-				notification: _('a snarling beast jumps out from behind a car.'),
+				notification: '一头咆哮着的野兽从车后面跳出来.',
 				combat: true,
-				enemy: 'beast',
-				chara: 'R',
-				damage: 2,
-				hit: 0.8,
-				attackDelay: 1,
-				health: 30,
-				loot: {
-					'meat': {
-						min: 1,
-						max: 5,
-						chance: 0.8
-					},
-					'fur': {
-						min: 1,
-						max: 5,
-						chance: 0.8
-					},
-					'teeth': {
-						min: 1,
-						max: 5,
-						chance: 0.5
-					}
-				},
-				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+				enemy: '野兽',
+  				chara: 'B',
+  				damage: 2,
+  				hit: 0.8,
+  				attackDelay: 1,
+  				health: 30,
+  				loot: {
+  					'肉': {
+  						min: 1,
+  						max: 5,
+  						chance: 0.8
+  					},
+  					'毛皮': {
+  						min: 1,
+  						max: 5,
+  						chance: 0.8
+  					},
+  					'牙齿': {
+  						min: 1,
+  						max: 5,
+  						chance: 0.5
+  					}
+  				},
+		        buttons: {
+		        	'continue': {	
+						text: '继续前进',
 						nextScene: {1: 'd2'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			
 			'c3': {
 				text: [
-					_('street above the subway platform is blown away.'),
-					_('lets some light down into the dusty haze.'),
-					_('a sound comes from the tunnel, just ahead.')
-				],
-				buttons: {
-					'enter': {
-						text: _('investigate'),
-						cost: { 'torch': 1 },
+			       '地铁站上方的街道已经被摧毁了.',
+			       '一些光线照射到阴霾的尘土中.',
+			       '前方传来一些声响.'
+		        ],
+		        buttons: {
+		        	'enter': {	
+						text: '调查',
+						cost: { '火炬': 1 },
 						nextScene: {0.5: 'd2', 1: 'd3'}
 					},
 					'leave': {
-						text: _('leave city'),
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			
 			'c4': {
 				text: [
-					_('looks like a camp of sorts up ahead.'),
-                    /// TRANSLATORS : chainlink is a type of metal fence.
-					_('rusted chainlink is pulled across an alleyway.'),
-					_('fires burn in the courtyard beyond.')
-				],
-				buttons: {
-					'enter': {
-						text: _('continue'),
+			       '好像前方有一个营地.',
+			       '生锈的链条东拉西扯的.',
+			       '大火灾庭院前燃烧.'
+		        ],
+		        buttons: {
+		        	'enter': {	
+						text: '继续前进',
 						nextScene: {0.5: 'd4', 1: 'd5'}
 					},
 					'leave': {
-						text: _('leave city'),
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			
 			'c5': {
 				text: [
-					_('more voices can be heard ahead.'),
-					_('they must be here for a reason.')
-				],
-				buttons: {
-					'enter': {
-						text: _('continue'),
+			       '前方传来更多的声响.',
+			       '肯定有什么事情发生了.'
+		        ],
+		        buttons: {
+		        	'enter': {	
+						text: '继续前进',
 						nextScene: {1: 'd5'}
 					},
 					'leave': {
-						text: _('leave city'),
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			
 			'c6': {
 				text: [
-					_('the sound of gunfire carries on the wind.'),
-					_('the street ahead glows with firelight.')
-				],
-				buttons: {
-					'enter': {
-						text: _('continue'),
+			       '风中传来枪响.',
+			       '前方街道闪光连连.'
+		        ],
+		        buttons: {
+		        	'enter': {	
+						text: '继续前进',
 						nextScene: {0.5: 'd5', 1: 'd6'}
 					},
 					'leave': {
-						text: _('leave city'),
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			
 			'c7': {
 				text: [
-                    /// TRANSLATORS : squatters occupy abandoned dwellings they don't own.
-					_('more squatters are crowding around now.'),
-					_('someone throws a stone.')
-				],
-				buttons: {
-					'enter': {
-						text: _('continue'),
+			       '越来越多的人挤过来了.',
+			       '有人扔出一块石头.'
+		        ],
+		        buttons: {
+		        	'enter': {	
+						text: '继续前进',
 						nextScene: {0.5: 'd7', 1: 'd8'}
 					},
 					'leave': {
-						text: _('leave city'),
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			
 			'c8': {
 				text: [
-					_('an improvised shop is set up on the sidewalk.'),
-					_('the owner stands by, stoic.')
+					'一个简易车间被安置在路边.',
+					'店主坚强的站在边上.'
 				],
 				loot: {
-					'steel sword': {
+					'钢剑': {
 						min: 1,
 						max: 1,
 						chance: 0.8
 					},
-					'rifle': {
+					'步枪': {
 						min: 1,
 						max: 1,
 						chance: 0.5
 					},
-					'bullets': {
+					'子弹': {
 						min: 1,
 						max: 8,
 						chance: 0.25
 					},
-					'alien alloy': {
+					'外星合金': {
 						min: 1,
 						max: 1,
 						chance: 0.01
 					},
-					'medicine': {
-						min: 1,
-						max: 4,
-						chance: 0.5
+					'医疗药剂': {
+					  min: 1,
+					  max: 4,
+					  chance: 0.5
 					}
 				},
-				buttons: {
-					'enter': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+		        buttons: {
+		        	'enter': {	
+						text: '继续前进',
 						nextScene: {1: 'd8'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			
 			'c9': {
 				text: [
-					_('strips of meat hang drying by the side of the street.'),
-					_('the people back away, avoiding eye contact.')
-				],
-				loot: {
-					'cured meat': {
-						min: 5,
-						max: 10,
-						chance: 1
-					}
-				},
-				buttons: {
-					'enter': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+			       '很多肉条晒在路边.',
+			       '人们纷纷后退, 躲闪着眼光.'
+		        ],
+		        loot: {
+		        	'腌肉': {
+		        		min: 5,
+		        		max: 10,
+		        		chance: 1
+		        	}
+		        },
+		        buttons: {
+		        	'enter': {	
+						text: '继续前进',
 						nextScene: {0.5: 'd8', 1: 'd9'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			
 			'c10': {
 				text: [
-					_('someone has locked and barricaded the door to this operating theatre.')
-				],
-				buttons: {
-					'enter': {
-						text: _('continue'),
+			       '有人反锁了手术室的门.'
+		        ],
+		    buttons: {
+		      'enter': {	
+						text: '继续前进',
 						nextScene: {0.2: 'end12', 0.6: 'd10', 1: 'd11'}
 					},
 					'leave': {
-						text: _('leave city'),
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		    }
 			},
 			
 			'c11': {
-				notification: _('a tribe of elderly squatters is camped out in this ward.'),
+				notification: '老人们的蜗居就在这间病房.',
 				combat: true,
-				enemy: 'squatters',
+				enemy: '一群难民',
 				plural: true,
-				chara: 'EEE',
+				chara: 'SSS',
 				damage: 2,
 				hit: 0.7,
 				attackDelay: 0.5,
 				health: 40,
-				loot: {
-					'cured meat': {
+  			loot: {
+					'腌肉': {
 						min: 1,
 						max: 3,
 						chance: 0.5
 					},
-					'cloth': {
+					'布匹': {
 						min: 3,
 						max: 8,
 						chance: 0.8
 					},
-					'medicine': {
-						min: 1,
-						max: 3,
-						chance: 0.3
+					'医疗药剂': {
+					  min: 1,
+					  max: 3,
+					  chance: 0.3
 					}
 				},
-				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
-						nextScene: { 1: 'end10' }
-					},
-					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+        buttons: {
+    			'continue': {
+    				text: '继续前进',
+    				nextScene: { 1: 'end10' }
+    			},
+    			'leave': {
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		    }
 			},
 			
 			'c12': {
-				notification: _('a pack of lizards rounds the corner.'),
+				notification: '一群蜥蜴在角落里.',
 				combat: true,
-				enemy: 'lizards',
+				enemy: '一群蜥蜴',
 				plural: true,
-				chara: 'RRR',
+				chara: 'LLL',
 				damage: 4,
 				hit: 0.7,
 				attackDelay: 0.7,
 				health: 30,
-				loot: {
-					'meat': {
+  			loot: {
+					'肉': {
 						min: 3,
 						max: 8,
 						chance: 1
 					},
-					'teeth': {
+					'牙齿': {
 						min: 2,
 						max: 4,
 						chance: 1
 					},
-					'scales': {
-						min: 3,
-						max: 5,
-						chance: 1
+					'鳞片': {
+					  min: 3,
+					  max: 5,
+					  chance: 1
 					}
 				},
-				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
-						nextScene: { 1: 'end10' }
-					},
-					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+        buttons: {
+    			'continue': {
+    				text: '继续前进',
+    				nextScene: { 1: 'end10' }
+    			},
+    			'leave': {
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		    }
 			},
 			
 			'c13': {
 				text: [
-					_('strips of meat are hung up to dry in this ward.')
+					'肉条挂在房间里面风干.'
 				],
 				loot: {
-					'cured meat': {
-						min: 3,
-						max: 10,
-						chance: 1
+					'腌肉': {
+					  min: 3,
+					  max: 10,
+					  chance: 1
 					}
 				},
-				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
-						nextScene: { 0.5: 'end10', 1: 'end11' }
-					},
-					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+        buttons: {
+    			'continue': {
+    				text: '继续前进',
+    				nextScene: { 0.5: 'end10', 1: 'end11' }
+    			},
+    			'leave': {
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		    }
 			},
 						
 			'd1': {
-				notification: _('a large bird nests at the top of the stairs.'),
+				notification: '楼梯尽头有一个巨大的鸟巢.',
 				combat: true,
-				enemy: 'bird',
-				chara: 'R',
-				damage: 5,
-				hit: 0.7,
-				attackDelay: 1,
-				health: 45,
-				loot: {
-					'meat': {
-						min: 5,
-						max: 10,
-						chance: 0.8
-					}
-				},
-				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+				enemy: '怪鸟',
+  				chara: 'B',
+  				damage: 5,
+  				hit: 0.7,
+  				attackDelay: 1,
+  				health: 45,
+  				loot: {
+  					'肉': {
+  						min: 5,
+  						max: 10,
+  						chance: 0.8
+  					}
+  				},
+		        buttons: {
+		        	'continue': {	
+						text: '继续前进',
 						nextScene: {0.5: 'end1', 1: 'end2'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			
 			'd2': {
 				text: [
-					_("the debris is denser here."),
-					_("maybe some useful stuff in the rubble.")
-				],
-				loot: {
-					'bullets': {
-						min: 1,
-						max: 5,
-						chance: 0.5
-					},
-					'steel': {
-						min: 1,
-						max: 10,
-						chance: 0.8
-					},
-					'alien alloy': {
-						min: 1,
-						max: 1,
-						chance: 0.01
-					},
-					'cloth': {
-						min: 1,
-						max: 10,
-						chance: 1
-					}
-				},
-				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+			       "这里碎片密布.",
+			       "可能在碎片中会有一些有用的东西."
+		        ],
+		        loot: {
+		        	'子弹': {
+		        		min: 1,
+		        		max: 5,
+		        		chance: 0.5
+		        	},
+		        	'钢': {
+		        		min: 1,
+		        		max: 10,
+		        		chance: 0.8
+		        	},
+		        	'外星合金': {
+		        		min: 1,
+		        		max: 1,
+		        		chance: 0.01
+		        	},
+		        	'布匹': {
+		        		min: 1,
+		        		max: 10,
+		        		chance: 1
+		        	}
+		        },
+		        buttons: {
+		        	'continue': {	
+						text: '继续前进',
 						nextScene: {1: 'end2'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			
 			'd3': {
-				notification: _('a swarm of rats rushes up the tunnel.'),
+				notification: '一大群老鼠冲入隧道.',
 				combat: true,
-				enemy: 'rats',
+				enemy: '一群老鼠',
 				plural: true,
-				chara: 'RRR',
-				damage: 1,
-				hit: 0.8,
-				attackDelay: 0.25,
-				health: 60,
-				loot: {
-					'fur': {
-						min: 5,
-						max: 10,
-						chance: 0.8
-					},
-					'teeth': {
+  				chara: 'RRR',
+  				damage: 1,
+  				hit: 0.8,
+  				attackDelay: 0.25,
+  				health: 60,
+  				loot: {
+  					'毛皮': {
+  						min: 5,
+  						max: 10,
+  						chance: 0.8
+  					},
+					'牙齿': {
 						min: 5,
 						max: 10,
 						chance: 0.5
 					}
-				},
-				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+  				},
+		        buttons: {
+		        	'continue': {	
+						text: '继续前进',
 						nextScene: {0.5: 'end2', 1: 'end3'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			
 			'd4': {
-				notification: _('a large man attacks, waving a bayonet.'),
+				notification: '一个高大的男人挥舞着刺刀进行攻击.',
 				combat: true,
-				enemy: 'veteran',
-				chara: 'D',
-				damage: 6,
+				enemy: '老兵',
+				chara: 'V',
+				damage: 3,
 				hit: 0.8,
 				attackDelay: 2,
 				health: 45,
 				loot: {
-					'bayonet': {
+					'刺刀': {
 						min: 1,
 						max: 1,
 						chance: 0.5
 					},
-					'cured meat': {
+					'腌肉': {
 						min: 1,
 						max: 5,
 						chance: 0.8
@@ -2070,81 +1985,77 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {0.5: 'end4', 1: 'end5'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
 			},
 			
 			'd5': {
-				notification: _('a second soldier opens fire.'),
+				notification: '第二个士兵开火了.',
 				combat: true,
-				enemy: 'soldier',
+  				enemy: '士兵',
 				ranged: true,
-				chara: 'D',
-				damage: 8,
-				hit: 0.8,
-				attackDelay: 2,
-				health: 50,
-				loot: {
-					'cured meat': {
-						min: 1,
-						max: 5,
-						chance: 0.8
-					},
-					'bullets': {
+  				chara: 'D',
+  				damage: 8,
+  				hit: 0.8,
+  				attackDelay: 2,
+  				health: 50,
+  				loot: {
+  					'腌肉': {
+  						min: 1,
+  						max: 5,
+  						chance: 0.8
+  					},
+					'子弹': {
 						min: 1,
 						max: 5,
 						chance: 0.5
 					},
-					'rifle': {
+					'步枪': {
 						min: 1,
 						max: 1,
 						chance: 0.2
 					}
-				},
-				buttons: {
-					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+  				},
+		        buttons: {
+		        	'continue': {	
+						text: '继续前进',
 						nextScene: {1: 'end5'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
-				}
+		        }
 			},
 			
 			'd6': {
-				notification: _('a masked soldier rounds the corner, gun drawn'),
+				notification: '一个蒙面士兵持枪站在角落',
 				combat: true,
-				enemy: 'commando',
-				chara: 'D',
+				enemy: '民兵',
+				chara: 'C',
 				ranged: true,
 				damage: 3,
 				hit: 0.9,
 				attackDelay: 2,
 				health: 55,
 				loot: {
-					'rifle': {
+					'步枪': {
 						min: 1,
 						max: 1,
 						chance: 0.5
 					},
-					'bullets': {
+					'子弹': {
 						min: 1,
 						max: 5,
 						chance: 0.8
 					},
-					'cured meat': {
+					'腌肉': {
 						min: 1,
 						max: 5,
 						chance: 0.8
@@ -2152,35 +2063,33 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {0.5: 'end5', 1: 'end6'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
 			},
 			
 			'd7': {
-				notification: _('the crowd surges forward.'),
+				notification: '人群涌动.',
 				combat: true,
-				enemy: 'squatters',
+				enemy: '一群难民',
 				plural: true,
-				chara: 'EEE',
+				chara: 'SSS',
 				damage: 2,
 				hit: 0.7,
 				attackDelay: 0.5,
 				health: 40,
 				loot: {
-					'cloth': {
+					'布匹': {
 						min: 1,
 						max: 5,
 						chance: 0.8
 					},
-					'teeth': {
+					'牙齿': {
 						min: 1,
 						max: 5,
 						chance: 0.5
@@ -2188,34 +2097,32 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {0.5: 'end7', 1: 'end8'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
 			},
 			
 			'd8': {
-				notification: _('a youth lashes out with a tree branch.'),
+				notification: '小年轻拿了根树枝就跳出来了.',
 				combat: true,
-				enemy: 'youth',
-				chara: 'E',
+				enemy: '洗剪吹',
+				chara: 'Y',
 				damage: 2,
 				hit: 0.7,
 				attackDelay: 1,
 				health: 45,
 				loot: {
-					'cloth': {
+					'布匹': {
 						min: 1,
 						max: 5,
 						chance: 0.8
 					},
-					'teeth': {
+					'牙齿': {
 						min: 1,
 						max: 5,
 						chance: 0.5
@@ -2223,34 +2130,32 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {1: 'end8'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
 			},
 			
 			'd9': {
-				notification: _('a squatter stands firmly in the doorway of a small hut.'),
+				notification: '有个人坚守在小木屋的门口.',
 				combat: true,
-				enemy: 'squatter',
-				chara: 'E',
+				enemy: '难民',
+				chara: 'S',
 				damage: 3,
 				hit: 0.8,
 				attackDelay: 2,
 				health: 20,
 				loot: {
-					'cloth': {
+					'布匹': {
 						min: 1,
 						max: 5,
 						chance: 0.8
 					},
-					'teeth': {
+					'牙齿': {
 						min: 1,
 						max: 5,
 						chance: 0.5
@@ -2258,62 +2163,59 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {0.5: 'end8', 1: 'end9'}
 					},
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
 			},
 			
 			'd10': {
-				notification: _('behind the door, a deformed figure awakes and attacks.'),
+				notification: '在门后的一个畸形人进行攻击.',
 				combat: true,
-				enemy: 'deformed',
-				chara: 'T',
+				enemy: '畸形人',
+				chara: 'D',
 				damage: 8,
 				hit: 0.6,
 				attackDelay: 2,
 				health: 40,
 				loot: {
-					'cloth': {
+					'布匹': {
 						min: 1,
 						max: 5,
 						chance: 0.8
 					},
-					'teeth': {
+					'牙齿': {
 						min: 2,
 						max: 2,
 						chance: 1
 					},
-					'steel': {
-						min: 1,
-						max: 3,
-						chance: 0.6
+					'钢': {
+					  min: 1,
+					  max: 3,
+					  chance: 0.6
 					},
-					'scales': {
-						min: 2,
-						max: 3,
-						chance: 0.1
+					'鳞片': {
+					  min: 2,
+					  max: 3,
+					  chance: 0.1
 					}
 				},
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {1: 'end14'}
 					}
 				}
 			},
 			
 			'd11': {
-				notification: _('as soon as the door is open a little bit, hundreds of tentacles erupt.'),
+				notification: '门只要开了一点, 几百个触手就涌过来.',
 				combat: true,
-				enemy: 'tentacles',
+				enemy: '满天触手',
 				plural: true,
 				chara: 'TTT',
 				damage: 2,
@@ -2321,7 +2223,7 @@ Events.Setpieces = {
 				attackDelay: 0.5,
 				health: 60,
 				loot: {
-					'meat': {
+					'肉': {
 						min: 10,
 						max: 20,
 						chance: 1
@@ -2329,8 +2231,7 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: {1: 'end13'}
 					}
 				}
@@ -2338,25 +2239,25 @@ Events.Setpieces = {
 		
 			'end1': {
 				text: [
-					_('bird must have liked shiney things.'),
-					_('some good stuff woven into its nest.')
+				   '鸟儿都喜欢闪亮的东西.',
+				   '它们的巢里面经常有好东西.'
 				],
 				onLoad: function() {
 					World.clearDungeon();
 					$SM.set('game.cityCleared', true);
 				},
 				loot: {
-					bullets: {
+					'子弹': {
 						min: 5,
 						max: 10,
 						chance: 0.8
 					},
-					bolas: {
+					'链球': {
 						min: 1,
 						max: 5,
 						chance: 0.5
 					},
-					'alien alloy': {
+					'外星合金': {
 						min: 1,
 						max: 1,
 						chance: 0.5
@@ -2364,8 +2265,7 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
@@ -2373,20 +2273,20 @@ Events.Setpieces = {
 			
 			'end2': {
 				text: [
-					_('not much here.'),
-					_('scavengers must have gotten to this place already.')
+				   '没什么东西了.',
+				   '清道夫已经来过这里了.'
 				],
 				onLoad: function() {
 					World.clearDungeon();
 					$SM.set('game.cityCleared', true);
 				},
 				loot: {
-					torch: {
+					'火炬': {   //tim mark, incase of bug
 						min: 1,
 						max: 5,
 						chance: 0.8
 					},
-					'cured meat': {
+					'腌肉': {
 						min: 1,
 						max: 5,
 						chance: 0.5
@@ -2394,8 +2294,7 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
@@ -2403,37 +2302,36 @@ Events.Setpieces = {
 			
 			'end3': {
 				text: [
-                    /// TRANSLATORS : a platform in the subway
-					_('the tunnel opens up at another platform.'),
-					_('the walls are scorched from an old battle.'),
-					_('bodies and supplies from both sides litter the ground.')
+				   '隧道通向一个平台.',
+				   '残破的墙壁.',
+				   '肢体和供给散落在墙壁两旁.'
 				],
 				onLoad: function() {
 					World.clearDungeon();
 					$SM.set('game.cityCleared', true);
 				},
 				loot: {
-					rifle: {
+					'步枪': {
 						min: 1,
 						max: 1,
 						chance: 0.8
 					},
-					bullets: {
+					'子弹': {
 						min: 1,
 						max: 5,
 						chance: 0.8
 					},
-					'laser rifle': {
+					'镭射枪': {
 						min: 1,
 						max: 1,
 						chance: 0.3
 					},
-					'energy cell': {
+					'燃料电池': {
 						min: 1,
 						max: 5,
 						chance: 0.3
 					},
-					'alien alloy': {
+					'外星合金': {
 						min: 1,
 						max: 1,
 						chance: 0.3
@@ -2441,35 +2339,35 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
 			},
 			
+			
 			'end4': {
 				text: [
-					_('the small military outpost is well supplied.'),
-					_('arms and munitions, relics from the war, are neatly arranged on the store-room floor.'),
-					_('just as deadly now as they were then.')
+				   '小型军事哨站补给充分.',
+				   '武器弹药整理的排列在储藏室的地上.',
+				   '跟以往一样的致命.'
 				],
 				onLoad: function() {
 					World.clearDungeon();
 					$SM.set('game.cityCleared', true);
 				},
 				loot: {
-					rifle: {
+					'步枪': {
 						min: 1,
 						max: 1,
 						chance: 1
 					},
-					bullets: {
+					'子弹': {
 						min: 1,
 						max: 10,
 						chance: 1
 					},
-					grenade: {
+					'手雷': {
 						min: 1,
 						max: 5,
 						chance: 0.8
@@ -2477,8 +2375,7 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
@@ -2486,40 +2383,39 @@ Events.Setpieces = {
 			
 			'end5': {
 				text: [
-					_('searching the bodies yields a few supplies.'),
-					_('more soldiers will be on their way.'),
-					_('time to move on.')
+				   '搜索尸体会得到一些物资.',
+				   '路上会遇到更多的尸体的.',
+				   '该离开了.'
 				],
 				onLoad: function() {
 					World.clearDungeon();
 					$SM.set('game.cityCleared', true);
 				},
 				loot: {
-					rifle: {
+					'步枪': {
 						min: 1,
 						max: 1,
 						chance: 1
 					},
-					bullets: {
+					'子弹': {
 						min: 1,
 						max: 10,
 						chance: 1
 					},
-					'cured meat': {
+					'腌肉': {
 						min: 1,
 						max: 5,
 						chance: 0.8
 					},
-					'medicine': {
-					min: 1,
-					max: 4,
-					chance: 0.1
+					'医疗药剂': {
+					  min: 1,
+					  max: 4,
+					  chance: 0.1
 					}
 				},
 				buttons: {
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
@@ -2527,26 +2423,26 @@ Events.Setpieces = {
 			
 			'end6': {
 				text: [
-					_('the small settlement has clearly been burning a while.'),
-					_('the bodies of the wanderers that lived here are still visible in the flames.'),
-					_("still time to rescue a few supplies.")
+				   '小型定居点已经烧了一阵子了.',
+				   '透过火焰仍可看到在燃烧的尸体.',
+				   "还有时间取得一些物资."
 				],
 				onLoad: function() {
 					World.clearDungeon();
 					$SM.set('game.cityCleared', true);
 				},
 				loot: {
-					'laser rifle': {
+					'镭射枪': {
 						min: 1,
 						max: 1,
 						chance: 0.5
 					},
-					'energy cell': {
+					'燃料电池': {
 						min: 1,
 						max: 5,
 						chance: 0.5
 					},
-					'cured meat': {
+					'腌肉': {
 						min: 1,
 						max: 10,
 						chance: 1
@@ -2554,34 +2450,34 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
 			},
 			
+			
 			'end7': {
 				text: [
-					_('the remaining settlers flee from the violence, their belongings forgotten.'),
-					_("there's not much, but some useful things can still be found.")
+				   '剩下的居民四处逃逸, 他们的物资都被抛下了.',
+				   "还能找到一些有用的东西, 虽然不多."
 				],
 				onLoad: function() {
 					World.clearDungeon();
 					$SM.set('game.cityCleared', true);
 				},
 				loot: {
-					'steel sword': {
+					'钢剑': {
 						min: 1,
 						max: 1,
 						chance: 0.8
 					},
-					'energy cell': {
+					'燃料电池': {
 						min: 1,
 						max: 5,
 						chance: 0.5
 					},
-					'cured meat': {
+					'腌肉': {
 						min: 1,
 						max: 10,
 						chance: 1
@@ -2589,8 +2485,7 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
@@ -2598,26 +2493,26 @@ Events.Setpieces = {
 			
 			'end8': {
 				text: [
-					_('the young settler was carrying a canvas sack.'),
-					_("it contains travelling gear, and a few trinkets."),
-					_("there's nothing else here.")
+				   '那个年轻的居民背着的是帆布包.',
+				   "里面有一些旅行用品和几个装饰品",
+				   "没别的了."
 				],
 				onLoad: function() {
 					World.clearDungeon();
 					$SM.set('game.cityCleared', true);
 				},
 				loot: {
-					'steel sword': {
+					'钢剑': {
 						min: 1,
 						max: 1,
 						chance: 0.8
 					},
-					'bolas': {
+					'链球': {
 						min: 1,
 						max: 5,
 						chance: 0.5
 					},
-					'cured meat': {
+					'腌肉': {
 						min: 1,
 						max: 10,
 						chance: 1
@@ -2625,8 +2520,7 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
@@ -2634,31 +2528,31 @@ Events.Setpieces = {
 			
 			'end9': {
 				text: [
-					_('inside the hut, a child cries.'),
-					_("a few belongings rest against the walls."),
-					_("there's nothing else here.")
+				   '小木屋内, 一个孩子在哭.',
+				   "有几个行李靠在墙边.",
+				   "没有东西了."
 				],
 				onLoad: function() {
 					World.clearDungeon();
 					$SM.set('game.cityCleared', true);
 				},
 				loot: {
-					'rifle': {
+					'步枪': {
 						min: 1,
 						max: 1,
 						chance: 0.8
 					},
-					'bullets': {
+					'子弹': {
 						min: 1,
 						max: 5,
 						chance: 0.8
 					},
-					'bolas': {
+					'链球': {
 						min: 1,
 						max: 5,
 						chance: 0.5
 					},
-					'alien alloy': {
+					'外星合金': {
 						min: 1,
 						max: 1,
 						chance: 0.2
@@ -2666,8 +2560,7 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
@@ -2675,31 +2568,31 @@ Events.Setpieces = {
 			
 			'end10': {
 				text: [
-					_('the stench of rot and death fills the operating theatres.'),
-					_("a few items are scattered on the ground."),
-					_('there is nothing else here.')
+				   '腐烂和死亡的气息弥漫在手术室.',
+				   "有一些东西散落在地上.",
+				   '没有其他东西了.'
 				],
 				onLoad: function() {
 					World.clearDungeon();
 					$SM.set('game.cityCleared', true);
 				},
 				loot: {
-					'energy cell': {
+					'燃料电池': {
 						min: 1,
 						max: 1,
 						chance: 0.3
 					},
-					'medicine': {
+					'医疗药剂': {
 						min: 1,
 						max: 5,
 						chance: 0.3
 					},
-					'teeth': {
+					'牙齿': {
 						min: 3,
 						max: 8,
 						chance: 1
 					},
-					'scales': {
+					'鳞片': {
 						min: 4,
 						max: 7,
 						chance: 0.9
@@ -2707,8 +2600,7 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
@@ -2716,25 +2608,25 @@ Events.Setpieces = {
 			
 			'end11': {
 				text: [
-					_('a pristine medicine cabinet at the end of a hallway.'),
-					_("the rest of the hospital is empty.")
+				   '一个朴素的药箱在走廊尽头.',
+				   "医院里面已经没什么了."
 				],
 				onLoad: function() {
 					World.clearDungeon();
 					$SM.set('game.cityCleared', true);
 				},
 				loot: {
-					'energy cell': {
+					'燃料电池': {
 						min: 1,
 						max: 1,
 						chance: 0.2
 					},
-					'medicine': {
+					'医疗药剂': {
 						min: 3,
 						max: 10,
 						chance: 1
 					},
-					'teeth': {
+					'牙齿': {
 						min: 1,
 						max: 2,
 						chance: 0.2
@@ -2742,8 +2634,7 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
@@ -2751,48 +2642,47 @@ Events.Setpieces = {
 			
 			'end12': {
 				text: [
-					_('someone had been stockpiling loot here.')
+				   '肯定有人一直储备东西在这里.'
 				],
 				onLoad: function() {
 					World.clearDungeon();
 					$SM.set('game.cityCleared', true);
 				},
 				loot: {
-					'energy cell': {
+					'燃料电池': {
 						min: 1,
 						max: 3,
 						chance: 0.2
 					},
-					'medicine': {
+					'医疗药剂': {
 						min: 3,
 						max: 10,
 						chance: 0.5
 					},
-					'bullets': {
+					'子弹': {
 						min: 2,
 						max: 8,
 						chance: 1
 					},
-					'torch': {
-					min: 1,
-					max: 3,
-					chance: 0.5
+					'火炬': {
+					  min: 1,
+					  max: 3,
+					  chance: 0.5
 					},
-					'grenade': {
-					min: 1,
-					max: 1,
-					chance: 0.5
+					'手雷': {
+					  min: 1,
+					  max: 1,
+					  chance: 0.5
 					},
-					'alien alloy': {
-					min: 1,
-					max: 2,
-					chance: 0.8
+					'外星合金': {
+					  min: 1,
+					  max: 2,
+					  chance: 0.8
 					}
 				},
 				buttons: {
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
@@ -2800,44 +2690,43 @@ Events.Setpieces = {
 			
 			'end13': {
 				text: [
-					_('the tentacular horror is defeated.'),
-					_('inside, the remains of its victims are everywhere.')
+				   '恐怖触手被几百了.',
+				   '里面到处都是遇难者的尸体.'
 				],
 				onLoad: function() {
 					World.clearDungeon();
 					$SM.set('game.cityCleared', true);
 				},
 				loot: {
-					'steel sword': {
+					'钢剑': {
 						min: 1,
 						max: 3,
 						chance: 0.5
 					},
-					'rifle': {
+					'步枪': {
 						min: 1,
 						max: 2,
 						chance: 0.3
 					},
-					'teeth': {
+					'牙齿': {
 						min: 2,
 						max: 8,
 						chance: 1
 					},
-					'cloth': {
-					min: 3,
-					max: 6,
-					chance: 0.5
+					'布匹': {
+					  min: 3,
+					  max: 6,
+					  chance: 0.5
 					},
-					'alien alloy': {
-					min: 1,
-					max: 1,
-					chance: 0.1
+					'外星合金': {
+					  min: 1,
+					  max: 1,
+					  chance: 0.1
 					}
 				},
 				buttons: {
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
@@ -2845,45 +2734,43 @@ Events.Setpieces = {
 			
 			'end14': {
 				text: [
-                    /// TRANSLATORS : warped means extremely disfigured.
-					_('the warped man lies dead.'),
-					_('the operating theatre has a lot of curious equipment.')
+				   '扭曲的男人死了.',
+				   '手术室有很多奇怪的设备.'
 				],
 				onLoad: function() {
 					World.clearDungeon();
 					$SM.set('game.cityCleared', true);
 				},
 				loot: {
-					'energy cell': {
+					'燃料电池': {
 						min: 2,
 						max: 5,
 						chance: 0.8
 					},
-					'medicine': {
+					'医疗药剂': {
 						min: 3,
 						max: 12,
 						chance: 1
 					},
-					'cloth': {
-						min: 1,
-						max: 3,
-						chance: 0.5
+					'布匹': {
+					  min: 1,
+					  max: 3,
+					  chance: 0.5
 					},
-					'steel': {
-						min: 2,
-						max: 3,
-						chance: 0.3
+					'钢': {
+					  min: 2,
+					  max: 3,
+					  chance: 0.3
 					},
-					'alien alloy': {
-						min: 1,
-						max: 1,
-						chance: 0.3
+					'外星合金': {
+					  min: 1,
+					  max: 1,
+					  chance: 0.3
 					}
 				},
 				buttons: {
 					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开城市',
 						nextScene: 'end'
 					}
 				}
@@ -2891,92 +2778,90 @@ Events.Setpieces = {
 			
 			'end15': {
 				text: [
-					_('the old man had a small cache of interesting items.')
+					'这个老人有一些有趣的小收藏.'
 				],
 				onLoad: function() {
 					World.clearDungeon();
 					$SM.set('game.cityCleared', true);
 				},
 				loot: {
-					'alien alloy': {
+					'外星合金': {
 						min: 1,
 						max: 1,
 						chance: 0.8
 					},
-					'medicine': {
-					min: 1,
-					max: 4,
-					chance: 1
+					'医疗药剂': {
+					  min: 1,
+					  max: 4,
+					  chance: 1
 					},
-					'cured meat': {
-					min: 3,
-					max: 7,
-					chance: 1
+					'腌肉': {
+					  min: 3,
+					  max: 7,
+					  chance: 1
 					},
-					'bolas': {
-					min: 1,
-					max: 3,
-					chance: 0.5
+					'链球': {
+					  min: 1,
+					  max: 3,
+					  chance: 0.5
 					},
-					'fur': {
-					min: 1,
-					max: 5,
-					chance: 0.8
+					'毛皮': {
+					  min: 1,
+					  max: 5,
+					  chance: 0.8
 					}
 				},
 				buttons: {
-					'leave': {
-						text: _('leave city'),
-						cooldown: Events._LEAVE_COOLDOWN,
-						nextScene: 'end'
-					}
-				}
+    			'leave': {
+    				text: '离开城市',
+    				nextScene: 'end'
+    			}
+		    }
 			}
-		},
-		audio: AudioLibrary.LANDMARK_CITY
+		}	
 	},
-	"house": { /* Abandoned House */
-		title: _('An Old House'),
+	"废屋": { /* Abandoned House */
+		title: '一所老房子',
 		scenes: {
 			'start': {
 				text: [
-					_('an old house remains here, once white siding yellowed and peeling.'),
-					_('the door hangs open.')
+					'一所老房子依旧留存着, 白色的外墙泛黄脱落.',
+					'门开着.'
 				],
-				notification: _('the remains of an old house stand as a monument to simpler times'),
+				notification: '老房子好比是一座对时代的纪念碑一般',
 				buttons: {
 					'enter': {
-						text: _('go inside'),
+						text: '进入一探',
 						nextScene: { 0.25: 'medicine', 0.5: 'supplies', 1: 'occupied' }
 					},
 					'leave': {
-						text: _('leave'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			},
 			'supplies': {
 				text: [
-					_('the house is abandoned, but not yet picked over.'),
-					_('still a few drops of water in the old well.')
+					'房子虽然被废弃了, 但是还有一些东西.',
+					'水井里面依旧有水.'
 				],
 				onLoad: function() {
 					World.markVisited(World.curPos[0], World.curPos[1]);
 					World.setWater(World.getMaxWater());
-					Notifications.notify(null, _('water replenished'));
+					Notifications.notify(null, '水满了');
 				},
 				loot: {
-					'cured meat': {
-						min: 1,
-						max: 10,
-						chance: 0.8
-					},
-					'leather': {
+ 					'腌肉': {
+ 						min: 1,
+ 						max: 10,
+ 						chance: 0.8
+ 					},
+					'皮革': {
 						min: 1,
 						max: 10,
 						chance: 0.2
 					},
-					'cloth': {
+					'布匹': {
 						min: 1,
 						max: 10,
 						chance: 0.5
@@ -2984,22 +2869,21 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			},
 			'medicine': {
 				text: [
-					_('the house has been ransacked.'),
-					_('but there is a cache of medicine under the floorboards.')
+				  '房子已经被洗劫一空了.',
+					'但是地板下面还有一些医疗用品.'
 				],
 				onLoad: function() {
 					World.markVisited(World.curPos[0], World.curPos[1]);
 				},
 				loot: {
-					'medicine': {
+					'医疗药剂': {
 						min: 2,
 						max: 5,
 						chance: 1
@@ -3007,36 +2891,35 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			},
 			'occupied': {
 				combat: true,
-				enemy: 'squatter',
-				chara: 'E',
+				enemy: '难民',
+				chara: 'S',
 				damage: 3,
 				hit: 0.8,
 				attackDelay: 2,
 				health: 10,
-				notification: _('a man charges down the hall, a rusty blade in his hand'),
+				notification: '一个男人占据着大厅, 手持大刀',
 				onLoad: function() {
 					World.markVisited(World.curPos[0], World.curPos[1]);
 				},
 				loot: {
-					'cured meat': {
-						min: 1,
-						max: 10,
-						chance: 0.8
-					},
-					'leather': {
+ 					'腌肉': {
+ 						min: 1,
+ 						max: 10,
+ 						chance: 0.8
+ 					},
+					'皮革': {
 						min: 1,
 						max: 10,
 						chance: 0.2
 					},
-					'cloth': {
+					'布匹': {
 						min: 1,
 						max: 10,
 						chance: 0.5
@@ -3044,101 +2927,95 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			}
-		},
-		audio: AudioLibrary.LANDMARK_HOUSE
+		}
 	},
-	"battlefield": { /* Discovering an old battlefield */
-		title: _('A Forgotten Battlefield'),
+	"战场": { /* Discovering an old battlefield */
+		title: '遗落战场',
 		scenes: {
 			'start': {
 				text: [
-					_('a battle was fought here, long ago.'),
-					_('battered technology from both sides lays dormant on the blasted landscape.')
-				],
-				onLoad: function() {
+			       '很久以前的大战.',
+			       '双方的高科技造成了如此壮观的景象.'
+		        ],
+		        onLoad: function() {
 					World.markVisited(World.curPos[0], World.curPos[1]);
 				},
-				loot: {
-					'rifle': {
-						min: 1,
-						max: 3,
-						chance: 0.5
-					},
-					'bullets': {
-						min: 5,
-						max: 20,
-						chance: 0.8
-					},
-					'laser rifle': {
-						min: 1,
-						max: 3,
-						chance: 0.3
-					},
-					'energy cell': {
-						min: 5,
-						max: 10,
-						chance: 0.5
-					},
-					'grenade': {
-						min: 1,
-						max: 5,
-						chance: 0.5
-					},
-					'alien alloy': {
-						min: 1,
-						max: 1,
-						chance: 0.3
-					}
-				},
-				buttons: {
-					'leave': {
-						text: _('leave'),
-
-						nextScene: 'end'
-					}
-				}
+		        loot: {
+		        	'步枪': {
+		        		min: 1,
+		        		max: 3,
+		        		chance: 0.5
+		        	},
+		        	'子弹': {
+		        		min: 5,
+		        		max: 20,
+		        		chance: 0.8
+		        	},
+		        	'镭射枪': {
+		        		min: 1,
+		        		max: 3,
+		        		chance: 0.3
+		        	},
+		        	'燃料电池': {
+		        		min: 5,
+		        		max: 10,
+		        		chance: 0.5
+		        	},
+		        	'手雷': {
+		        		min: 1,
+		        		max: 5,
+		        		chance: 0.5
+		        	},
+		        	'外星合金': {
+		        		min: 1,
+		        		max: 1,
+		        		chance: 0.3
+		        	}
+		        },
+		        buttons: {
+		        	'leave': {
+		        		text: '离开',
+		        		nextScene: 'end'
+		        	}
+		        }
 			}
-		},
-		audio: AudioLibrary.LANDMARK_BATTLEFIELD
+		}
 	},
-	"borehole": { /* Admiring a huge borehole */
-		title: _('A Huge Borehole'),
+	"巨坑": { /* Admiring a huge borehole */
+		title: '一个巨坑',
 		scenes: {
 			'start': {
 				text: [
-					_('a huge hole is cut deep into the earth, evidence of the past harvest.'),
-					_('they took what they came for, and left.'),
-					_('castoff from the mammoth drills can still be found by the edges of the precipice.')
-				],
-				onLoad: function() {
+			       '一个巨大的深坑切入地表.',
+			       '他们拿走所需, 拍拍屁股.',
+			       '通过悬崖边依旧能看清庞大的废弃场.'
+		        ],
+		        onLoad: function() {
 					World.markVisited(World.curPos[0], World.curPos[1]);
 				},
-				loot: {
-					'alien alloy': {
-						min: 1,
-						max: 3,
-						chance: 1
-					}
-				},
-				buttons: {
-					'leave': {
-						text: _('leave'),
-						cooldown: Events._LEAVE_COOLDOWN,
-						nextScene: 'end'
-					}
-				}
+		        loot: {
+		        	'外星合金': {
+		        		min: 1,
+		        		max: 3,
+		        		chance: 1
+		        	}
+		        },
+		        buttons: {
+		        	'leave': {
+		        		text: '离开',
+		        		nextScene: 'end'
+		        	}
+		        }
 			}
-		},
-		audio: AudioLibrary.LANDMARK_BOREHOLE
+		}
 	},
-	"ship": { /* Finding a way off this rock */
-		title: _('A Crashed Ship'),
+	"飞船": { /* Finding a way off this rock */
+		title: '破损的飞船',
 		scenes: {
 			'start': {
 				onLoad: function() {
@@ -3147,155 +3024,149 @@ Events.Setpieces = {
 					World.state.ship = true;
 				},
 				text: [
-					_('the familiar curves of a wanderer vessel rise up out of the dust and ash. '),
-					_("lucky that the natives can't work the mechanisms."),
-					_('with a little effort, it might fly again.')
-				],
-				buttons: {
-					'leavel': {
-						text: _('salvage'),
-						nextScene: 'end'
-					}
-				}
+			       '尘土和灰烬之下流露出熟悉的各种曲线. ',
+				   "很幸运当地人不会机械.",
+			       '飞船可以被修复.'
+		        ],
+		        buttons: {
+		        	'leavel': {
+		        		text: '打捞',
+		        		nextScene: 'end'
+		        	}
+		        }
 			}
-		},
-		audio: AudioLibrary.LANDMARK_CRASHED_SHIP
+		}
 	},
-	"sulphurmine": { /* Clearing the Sulphur Mine */
-		title: _('The Sulphur Mine'),
+	"硫磺矿": { /* Clearing the Sulphur Mine */
+		title: '一座硫磺矿',
 		scenes: {
 			'start': {
 				text: [
-					_("the military is already set up at the mine's entrance."),
-					_('soldiers patrol the perimeter, rifles slung over their shoulders.')
+					"军队已经驻扎在矿井入口了.",
+					'巡逻兵挎着步枪.'
 				],
-				notification: _('a military perimeter is set up around the mine.'),
+				notification: '军队已经驻扎在矿井入口了',
 				buttons: {
-					'attack': {
-						text: _('attack'),
+					'attack': {	
+						text: '攻击',
 						nextScene: {1: 'a1'}
 					},
 					'leave': {
-						text: _('leave'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			},
 			'a1': {
 				combat: true,
-				enemy: 'soldier',
+  				enemy: '士兵',
 				ranged: true,
-				chara: 'D',
-				damage: 8,
-				hit: 0.8,
-				attackDelay: 2,
-				health: 50,
-				loot: {
-					'cured meat': {
-						min: 1,
-						max: 5,
-						chance: 0.8
-					},
-					'bullets': {
+  				chara: 'D',
+  				damage: 8,
+  				hit: 0.8,
+  				attackDelay: 2,
+  				health: 50,
+  				loot: {
+  					'腌肉': {
+  						min: 1,
+  						max: 5,
+  						chance: 0.8
+  					},
+					'子弹': {
 						min: 1,
 						max: 5,
 						chance: 0.5
 					},
-					'rifle': {
+					'步枪': {
 						min: 1,
 						max: 1,
 						chance: 0.2
 					}
-				},
-				notification: _('a soldier, alerted, opens fire.'),
+  				},
+  				notification: '一个士兵发现并开火了.',
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: { 1: 'a2' }
 					},
 					'run': {
-						text: _('run'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '逃跑',
 						nextScene: 'end'
 					}
 				}
 			},
 			'a2': {
 				combat: true,
-				enemy: 'soldier',
+  				enemy: '士兵',
 				ranged: true,
-				chara: 'D',
-				damage: 8,
-				hit: 0.8,
-				attackDelay: 2,
-				health: 50,
-				loot: {
-					'cured meat': {
-						min: 1,
-						max: 5,
-						chance: 0.8
-					},
-					'bullets': {
+  				chara: 'D',
+  				damage: 8,
+  				hit: 0.8,
+  				attackDelay: 2,
+  				health: 50,
+  				loot: {
+  					'腌肉': {
+  						min: 1,
+  						max: 5,
+  						chance: 0.8
+  					},
+					'子弹': {
 						min: 1,
 						max: 5,
 						chance: 0.5
 					},
-					'rifle': {
+					'步枪': {
 						min: 1,
 						max: 1,
 						chance: 0.2
 					}
-				},
-				notification: _('a second soldier joins the fight.'),
-				buttons: {
+  				},
+  				notification: '第二个士兵加入战斗.',
+ 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: { 1: 'a3' }
 					},
 					'run': {
-						text: _('run'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '逃跑',
 						nextScene: 'end'
 					}
 				}
 			},
 			'a3': {
 				combat: true,
-				enemy: 'veteran',
-				chara: 'D',
+				enemy: '老兵',
+				chara: 'V',
 				damage: 10,
 				hit: 0.8,
 				attackDelay: 2,
 				health: 65,
 				loot: {
-					'bayonet': {
+					'刺刀': {
 						min: 1,
 						max: 1,
 						chance: 0.5
 					},
-					'cured meat': {
+					'腌肉': {
 						min: 1,
 						max: 5,
 						chance: 0.8
 					}
 				},
-				notification: _('a grizzled soldier attacks, waving a bayonet.'),
-				buttons: {
+				notification: '一个头发花白的士兵加入战斗, 挥舞着刺刀.',
+ 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: { 1: 'cleared' }
 					}
 				}
 			},
 			'cleared': {
 				text: [
-					_('the military presence has been cleared.'),
-					_('the mine is now safe for workers.')
+					'军队已经被清除.',
+					'矿坑现在可以工作了.'
 				],
-				notification: _('the sulphur mine is clear of dangers'),
+				notification: '硫磺矿解除危险了',
 				onLoad: function() {
 					World.drawRoad();
 					World.state.sulphurmine = true;
@@ -3303,142 +3174,136 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			}
-		},
-		audio: AudioLibrary.LANDMARK_SULPHUR_MINE
+		}
 	},
-	"coalmine": { /* Clearing the Coal Mine */
-		title: _('The Coal Mine'),
+	"煤矿": { /* Clearing the Coal Mine */
+		title: '一座煤矿',
 		scenes: {
 			'start': {
 				text: [
-					_('camp fires burn by the entrance to the mine.'),
-					_('men mill about, weapons at the ready.')
+					'矿坑入口篝火很旺.',
+					'有人带着武器驻守在那.'
 				],
-				notification: _('this old mine is not abandoned'),
+				notification: '这座老矿坑没有被遗弃',
 				buttons: {
-					'attack': {
-						text: _('attack'),
+					'attack': {	
+						text: '攻击',
 						nextScene: {1: 'a1'}
 					},
 					'leave': {
-						text: _('leave'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			},
 			'a1': {
 				combat: true,
-				enemy: 'man',
-				chara: 'E',
+				enemy: '壮汉',
+				chara: 'M',
 				damage: 3,
 				hit: 0.8,
 				attackDelay: 2,
 				health: 10,
 				loot: {
-					'cured meat': {
+					'腌肉': {
 						min: 1,
 						max: 5,
 						chance: 0.8
 					},
-					'cloth': {
+					'布匹': {
 						min: 1,
 						max: 5,
 						chance: 0.8
 					}
 				},
-				notification: _('a man joins the fight'),
+				notification: '一个人加入战斗攻击',
 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: { 1: 'a2' }
 					},
 					'run': {
-						text: _('run'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '逃跑',
 						nextScene: 'end'
 					}
 				}
 			},
 			'a2': {
 				combat: true,
-				enemy: 'man',
-				chara: 'E',
-				damage: 3,
-				hit: 0.8,
-				attackDelay: 2,
-				health: 10,
-				loot: {
-					'cured meat': {
+ 				enemy: '壮汉',
+ 				chara: 'M',
+ 				damage: 3,
+ 				hit: 0.8,
+ 				attackDelay: 2,
+ 				health: 10,
+ 				loot: {
+					'腌肉': {
 						min: 1,
-						max: 5,
+ 						max: 5,
 						chance: 0.8
 					},
-					'cloth': {
+					'布匹': {
 						min: 1,
-						max: 5,
+ 						max: 5,
 						chance: 0.8
 					}
-				},
-				notification: _('a man joins the fight'),
-				buttons: {
+ 				},
+ 				notification: '一个人加入战斗',
+ 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: { 1: 'a3' }
 					},
 					'run': {
-						text: _('run'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '逃跑',
 						nextScene: 'end'
 					}
 				}
 			},
 			'a3': {
 				combat: true,
-				enemy: 'chief',
-				chara: 'D',
-				damage: 5,
-				hit: 0.8,
-				attackDelay: 2,
-				health: 20,
-				loot: {
-					'cured meat': {
+ 				enemy: 'chief',
+ 				chara: 'C',
+ 				damage: 5,
+ 				hit: 0.8,
+ 				attackDelay: 2,
+ 				health: 20,
+ 				loot: {
+					'腌肉': {
 						min: 5,
-						max: 10,
+ 						max: 10,
 						chance: 1
 					},
-					'cloth': {
+					'布匹': {
 						min: 5,
-						max: 10,
+ 						max: 10,
 						chance: 0.8
 					},
-					'iron': {
+					'铁': {
 						min: 1,
 						max: 5,
 						chance: 0.8
 					}
-				},
-				notification: _('only the chief remains.'),
-				buttons: {
+ 				},
+ 				notification: '只有老大还在.',
+ 				buttons: {
 					'continue': {
-						text: _('continue'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '继续前进',
 						nextScene: { 1: 'cleared' }
 					}
 				}
 			},
 			'cleared': {
 				text: [
-					_('the camp is still, save for the crackling of the fires.'),
-					_('the mine is now safe for workers.')
+					'营地依旧, 还有火焰燃烧的声音.',
+					'矿坑安全了.'
 				],
-				notification: _('the coal mine is clear of dangers'),
+				notification: '矿坑解除危险了',
 				onLoad: function() {
 					World.drawRoad();
 					World.state.coalmine = true;
@@ -3446,76 +3311,74 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			}
-		},
-		audio: AudioLibrary.LANDMARK_COAL_MINE
+		}
 	},
-	"ironmine": { /* Clearing the Iron Mine */
-		title: _('The Iron Mine'),
-		scenes: {
+	"铁矿": { /* Clearing the Iron Mine */
+		title: '一个铁矿',
+ 		scenes: {
 			'start': {
 				text: [
-					_('an old iron mine sits here, tools abandoned and left to rust.'),
-					_('bleached bones are strewn about the entrance. many, deeply scored with jagged grooves.'),
-					_('feral howls echo out of the darkness.')
+					'一个老矿坑在哪, 生锈的工具被乱丢.',
+					'各种白骨散落一地, 上面还有深深的齿痕.',
+					'黑暗中传来野性的咆哮.'
 				],
-				notification: _('the path leads to an abandoned mine'),
+				notification: '通向矿坑的小路',
 				buttons: {
 					'enter': {
-						text: _('go inside'),
+						text: '进入一探',
 						nextScene: { 1: 'enter' },
-						cost: { 'torch': 1 }
+						cost: { '火炬': 1 }
 					},
 					'leave': {
-						text: _('leave'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			},
-			'enter': {
-				combat: true,
-				enemy: 'beastly matriarch',
-				chara: 'T',
-				damage: 4,
-				hit: 0.8,
-				attackDelay: 2,
-				health: 10,
-				loot: {
-					'teeth': {
+ 			'enter': {
+ 				combat: true,
+ 				enemy: '兽女',
+ 				chara: 'M',
+ 				damage: 4,
+ 				hit: 0.8,
+ 				attackDelay: 2,
+ 				health: 10,
+ 				loot: {
+ 					'牙齿': {
+ 						min: 5,
+ 						max: 10,
+ 						chance: 1
+ 					},
+					'鳞片': {
 						min: 5,
-						max: 10,
-						chance: 1
-					},
-					'scales': {
-						min: 5,
-						max: 10,
+ 						max: 10,
 						chance: 0.8
 					},
-					'cloth': {
+					'布匹': {
 						min: 5,
-						max: 10,
+ 						max: 10,
 						chance: 0.5
 					}
-				},
-				notification: _('a large creature lunges, muscles rippling in the torchlight'),
-				buttons: {
+ 				},
+ 				notification: '一个巨大的生物出现, 肌肉大到爆',
+ 				buttons: {
 					'leave': {
-						text: _('leave'),
-						cooldown: Events._LEAVE_COOLDOWN,
+						text: '离开',
 						nextScene: { 1: 'cleared' }
 					}
 				}
-			},
+ 			},
 			'cleared': {
 				text: [
-					_('the beast is dead.'),
-					_('the mine is now safe for workers.')
+					'野兽死了.',
+					'矿坑安全了.'
 				],
-				notification: _('the iron mine is clear of dangers'),
+				notification: '矿坑解除危险了',
 				onLoad: function() {
 					World.drawRoad();
 					World.state.ironmine = true;
@@ -3523,52 +3386,50 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			}
-		},
-		audio: AudioLibrary.LANDMARK_IRON_MINE
+ 		}
 	},
 	
-	"cache": { /* Cache - contains some of supplies from previous game */
-		title: _('A Destroyed Village'),
+	"临时": { /* Cache - contains some of supplies from previous game */
+		title: '一个毁灭的村庄',
 		scenes: {
 			'start': {
 				text: [
-					_('a destroyed village lies in the dust.'),
-					_('charred bodies litter the ground.')
+					'毁灭的村子到处都是灰尘.',
+					'破烂的尸体到处都是.'
 				],
-                /// TRANSLATORS : tang = strong metallic smell, wanderer afterburner = ship's engines
-				notification: _('the metallic tang of wanderer afterburner hangs in the air.'),
+				notification: '被烧焦的尸体挂在空中.',
 				buttons: {
 					'enter': {
-						text: _('enter'),
+						text: '进入',
 						nextScene: {1: 'underground'}
 					},
 					'leave': {
-						text: _('leave'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			},
 			'underground': {
 				text: [
-					_('a shack stands at the center of the village.'),
-					_('there are still supplies inside.')
+					'一个木屋处理在村子中心.',
+					'里面还有一些物资.'
 				],
 				buttons: {
 					'take': {
-						text: _('take'),
+						text: '拿走',
 						nextScene: {1: 'exit'}
 					}
 				}
 			},
 			'exit': {
 				text: [
-					_('all the work of a previous generation is here.'),
-				_('ripe for the picking.')
+					'前代人的痕迹就在这里了.',
+					'是时候采摘果实了.'
 				],
 				onLoad: function() {
 					World.markVisited(World.curPos[0], World.curPos[1]);
@@ -3576,12 +3437,11 @@ Events.Setpieces = {
 				},
 				buttons: {
 					'leave': {
-						text: _('leave'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			}
-		},
-		audio: AudioLibrary.LANDMARK_DESTROYED_VILLAGE
+		}
 	}
 };

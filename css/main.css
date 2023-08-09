@@ -1,5 +1,5 @@
-/* Fonts */
-body, .tooltip, select.menuBtn {
+﻿/* Fonts */
+body, .tooltip {
 	font-family: "Times New Roman", Times, serif;
 	font-size: 16px;
 	font-weight: normal;
@@ -16,20 +16,8 @@ body {
 	margin: 0;
 }
 
-::selection {
+::selection{
 	background-color: transparent;
-}
-
-::-moz-selection {
-	background-color: transparent;
-}
-
-#description textarea::selection {
-	background-color: gray;
-}
-
-#description textarea::-moz-selection {
-	background-color: gray;
 }
 
 /* Framework stuff */
@@ -46,9 +34,9 @@ div#wrapper {
 }
 
 div#saveNotify {
-	position: fixed;
-	top: 10px;
-	right: 20px;
+	position: absolute;
+	top: 20px;
+	right: 0px;
 	background: white;
 	opacity: 0;
 }
@@ -64,27 +52,11 @@ div#header {
 	height: 20px;
 }
 
-.logo {
-  position: fixed;
-  left: 10px;
-  bottom: 0;
-  z-index: 10;
-}
-
-.logo-icon {
-  height: 40px;
-}
-
-.logo-icon > path {
-  stroke: black;
-}
-
 .menu {
-	position: fixed;
+	position: absolute;
 	right: 10px;
 	bottom: 10px;
 	color: #666;
-	z-index: 10;
 }
 
 .menu span {
@@ -93,61 +65,12 @@ div#header {
 	margin-left: 20px;
 }
 
-.customSelect {
-	height: 20px;
-}
-
-span.customSelectOptions {
-	margin: 0;
-	width: 120px;
-}
-
-.customSelectOptions > ul {
-	max-height: 20px;
-	width: 120px;
-	overflow: hidden;
-	-webkit-transition: max-height 1s;
-	transition: max-height 1s;
-	padding: 0;
-	margin: 0;
-	bottom: 0;
-	position: absolute;
-	right: 0;
-}
-
-.customSelectOptions > ul:hover {
-	max-height: 600px;
-}
-
-.customSelectOptions > ul > li {
-	padding: 0 0 3px 0;
-	list-style-type: none;
-	height: 20px;
-}
-
-.customSelectOptions > ul > li:last-child {
-	padding: 0;
-}
-
-.customSelectOptions > ul > li:hover {
-	text-decoration: underline;
-}
-
-.customSelectOptions > ul > li:first-child:hover {
-	cursor: default;
-	text-decoration: none;
-}
-
 .menu span:hover {
 	text-decoration: underline;
 }
 
-.menu .appStore {
-	font-weight: bold;
-}
-
 div.headerButton {
-	font-size: 17px;
+	font-size: 18px;
 	cursor: pointer;
 	float: left;
 	border-left: 1px solid black;
@@ -199,10 +122,6 @@ div.row_key {
 
 div.row_val {
 	float: right;
-}
-
-div.total {
-	font-weight: bold;
 }
 
 /* Notifications */
@@ -262,8 +181,8 @@ div.button:hover {
 
 div.button.disabled, div.button.disabled:hover {
 	cursor: default;
-	border-color: #b2b2b2;
-	color: #b2b2b2;
+	border-color: grey;
+	color: grey;
 	text-decoration: none;
 }
 
@@ -281,16 +200,16 @@ div.button div.cooldown {
 .upBtn, .dnBtn, .upManyBtn, .dnManyBtn {
 	position: absolute;
 	width: 14px;
-	height: 12px;
+	height: 15px;
 	cursor: pointer;
 }
 
 .upBtn, .dnBtn {
-	right: 0px;
+    right: 0px;
 }
 
 .upManyBtn, .dnManyBtn {
-	right: -15px;
+    right: -11px;
 }
 
 .upBtn.disabled, .dnBtn.disabled, .upManyBtn.disabled, .dnManyBtn.disabled {
@@ -298,11 +217,11 @@ div.button div.cooldown {
 }
 
 .upBtn {
-	top: -3px;
+	top: -2px;
 }
 
 .upManyBtn {
-	top: -3px;
+    top: -2px;
 }
 
 .upBtn:after, .upBtn:before, .upManyBtn:after, .upManyBtn:before {
@@ -311,7 +230,7 @@ div.button div.cooldown {
 	content: " ";
 	height: 0;
 	width: 0;
-	bottom: 2px;
+	bottom: 4px;
 }
 
 .upBtn:after, .upManyBtn:after {
@@ -332,7 +251,7 @@ div.button div.cooldown {
 }
 
 .dnManyBtn {
-	bottom: -3px;
+    bottom: -3px;
 }
 
 .dnBtn:after, .dnBtn:before, .dnManyBtn:after, .dnManyBtn:before {
@@ -341,31 +260,25 @@ div.button div.cooldown {
 	content: " ";
 	height: 0;
 	width: 0;
-	top: 2px;
+	top: 4px;
 }
 
-/* Overall size of buttons controlled by this style
-   border-width and margin-left should be the same. */
-.upBtn:before, .dnBtn:before, .upManyBtn:before, .dnManyBtn:before {
-	border-width: 6px;
-	left: 50%;
-	margin-left: -6px;
-}
-
-/* Thickness of up/down button lines controlled by this style.
-   border-width and margin-left should be the same.
-   Thickness = :before.border-width minus :after.border-width */
 .upBtn:after, .dnBtn:after {
-	border-width: 4px;
-	left: 50%;
-	margin-left: -4px;
-}
-
-/* See comment on .upBtn:after, .dnBtn:after */
-.upManyBtn:after, .dnManyBtn:after {
 	border-width: 3px;
 	left: 50%;
 	margin-left: -3px;
+}
+
+.upBtn:before, .dnBtn:before, .upManyBtn:before, .dnManyBtn:before {
+	border-width: 5px;
+	left: 50%;
+	margin-left: -5px;
+}
+
+.upManyBtn:after, .dnManyBtn:after {
+	border-width: 2px;
+	left: 50%;
+	margin-left: -2px;
 }
 
 .dnBtn:after, .dnManyBtn:after {
@@ -431,14 +344,14 @@ div.tooltip:hover {
 /* Events */
 
 .eventPanel {
-	background: none repeat scroll 0 0 white;
-	border: 2px solid transparent;
-	left: 250px;
-	padding: 20px;
-	position: absolute;
-	top: 90px;
-	width: 335px;
-	z-index: 20;
+    background: none repeat scroll 0 0 white;
+    border: 2px solid transparent;
+    left: 250px;
+    padding: 20px;
+    position: absolute;
+    top: 90px;
+    width: 335px;
+    z-index: 20;
 }
 
 body.noMask .eventPanel {
@@ -446,15 +359,15 @@ body.noMask .eventPanel {
 }
 
 .eventPanel:before {
-	background-color:white;
-	opacity: 0.6;
-	content: " ";
-	height: 700px;
-	left: -252px;
-	position: absolute;
-	top: -75px;
-	width: 920px;
-	z-index: -2;
+    background-color:white;
+    opacity: 0.6;
+    content: " ";
+    height: 700px;
+    left: -252px;
+    position: absolute;
+    top: -75px;
+    width: 920px;
+    z-index: -2;
 }
 
 body.noMask .eventPanel:before {
@@ -469,7 +382,7 @@ body.noMask .eventPanel:before {
 	height: 100%;
 	content: " ";
 	border: 2px solid black;
-	box-shadow: 5px 5px 5px #666666;
+    box-shadow: 5px 5px 5px #666666;
 	z-index: -2;
 }
 
@@ -488,10 +401,10 @@ body.noMask .eventPanel .button {
 }
 
 .eventTitle {
-	display: inline-block;
-	font-weight: bold;
-	position: absolute;
-	top: -12px;
+    display: inline-block;
+    font-weight: bold;
+    position: absolute;
+    top: -12px;
 }
 
 body.noMask .eventTitle {
@@ -499,14 +412,14 @@ body.noMask .eventTitle {
 }
 
 .eventTitle:after {
-	background-color: white;
-	bottom: 32%;
-	content: " ";
-	height: 5px;
-	left: 0;
-	position: absolute;
-	width: 100%;
-	z-index: -1;
+    background-color: white;
+    bottom: 32%;
+    content: " ";
+    height: 5px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
 }
 
 body.noMask .eventTitle:after {
@@ -531,13 +444,9 @@ body.noMask #description {
 	padding-bottom: 20px;
 }
 
-.take-all-button {
-	float: none;
-}
-
 #buttons > .button {
-	margin: 0 5px 5px;
-	margin-right: 15px;
+    margin: 0 5px 5px;
+    margin-right: 15px;
 }
 
 /* Combat! */
@@ -561,53 +470,6 @@ body.noMask #description {
 	margin-left: -50%;
 }
 
-.fighter.shield > .label::before {
-	content: '(';
-	position: absolute;
-	left: -8px;
-}
-
-.fighter.shield > .label::after {
-	content: ')';
-	position: absolute;
-	right: -8px;
-}
-
-.fighter.energised > .label {
-	font-size: 2em;
-	font-style: bold;
-}
-
-.fighter.meditation > .label {
-	font-size: 1.5em;
-	opacity: 0.3;
-}
-
-@keyframes exploding {
-	0% { transform: translate(0, 0); }
-	25% { transform: translate(-10px, 0); }
-	75% { transform: translate(10px, 0); }
-	100% { transform: translate(0, 0); }
-}
-
-.fighter.exploding > .label {
-	animation: exploding 200ms linear infinite;
-}
-
-.fighter.venomous > .label {
-	font-size: 1.5em;
-	font-style: bold;
-}
-
-.fighter.enraged > .label {
-	font-size: 1.5em;
-	font-style: italic;
-}
-
-.fighter.boost > .label {
-	font-style: italic;
-}
-
 #description .bullet {
 	padding: 0px 20px 0px 20px;
 	bottom: 25px;
@@ -625,30 +487,30 @@ body.noMask #description {
 
 #lootButtons {
 	padding-bottom: 0px !important;
-	margin: 20px 0 5px 0;
+	margin: 20px 0 0 5px;
 	position: relative;
 }
 
 #lootButtons:before {
-	content: attr(data-legend);
+	content: "获取:";
 	position: absolute;
 	top: -25px;
 	left: 0px;
 }
 
 #dropMenu {
-	background: none repeat scroll 0 0 white;
-	border: 1px solid black;
-	position: absolute;
-	z-index: 100;
-	padding-top: 5px;
-	text-align: left;
-	box-shadow: -1px 3px 2px #666;
-	cursor: default;
+    background: none repeat scroll 0 0 white;
+    border: 1px solid black;
+    position: absolute;
+    z-index: 100;
+    padding-top: 5px;
+    text-align: left;
+    box-shadow: -1px 3px 2px #666;
+    cursor: default;
 }
 
 #dropMenu:before {
-	content: attr(data-legend);
+	content: "drop:";
 	border-bottom: 1px solid black;
 	display: block;
 	margin-bottom: 5px;

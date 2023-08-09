@@ -3,685 +3,591 @@
  **/
 Events.Room = [
 	{ /* The Nomad  --  Merchant */
-		title: _('The Nomad'),
+		title: '游牧帐篷',
 		isAvailable: function() {
-			return Engine.activeModule == Room && $SM.get('stores.fur', true) > 0;
+			return Engine.activeModule == Room && $SM.get('stores.毛皮', true) > 0;
 		},
 		scenes: {
 			'start': {
 				text: [
-					_('a nomad shuffles into view, laden with makeshift bags bound with rough twine.'),
-					_("won't say from where he came, but it's clear that he's not staying.")
+					'一个游牧贸易团进入了视野, 他们携带了很多粗糙的麻线袋, 装满了货物.',
+					"他们没有说他们从那里来, 显然也不会一直呆在这里."
 				],
-				notification: _('a nomad arrives, looking to trade'),
-				blink: true,
+				notification: '一个游牧帐篷抵达并寻求贸易',
 				buttons: {
 					'buyScales': {
-						text: _('buy scales'),
-						cost: { 'fur': 100 },
-						reward: { 'scales': 1 }
+						text: '购买 鳞片',
+						cost: { '毛皮': 100 },
+						reward: { '鳞片': 1 }
 					},
 					'buyTeeth': {
-						text: _('buy teeth'),
-						cost: { 'fur': 200 },
-						reward: { 'teeth': 1 }
+						text: '购买 牙齿',
+						cost: { '毛皮': 200 },
+						reward: { '牙齿': 1 }
 					},
 					'buyBait': {
-						text: _('buy bait'),
-						cost: { 'fur': 5 },
-						reward: { 'bait': 1 },
-						notification: _('traps are more effective with bait.')
+						text: '购买 诱饵',
+						cost: { '毛皮': 5 },
+						reward: { '诱饵': 1 },
+						notification: '带诱饵的陷阱更有效.'
 					},
 					'buyCompass': {
 						available: function() {
-							return $SM.get('stores.compass', true) < 1;
+							return $SM.get('stores["罗盘"]', true) < 1;
 						},
-						text: _('buy compass'),
-						cost: { fur: 300, scales: 15, teeth: 5 },
-						reward: { 'compass': 1 },
-						notification: _('the old compass is dented and dusty, but it looks to work.')
-					},
+						text: '购买 罗盘',
+						cost: { '毛皮': 300, '鳞片': 15, '牙齿': 5 },
+						reward: { '罗盘': 1 },
+						notification: '罗盘看上去很旧, 布满了灰尘, 但是依旧工作良好.',
+						onChoose: Path.openPath
+					}, 
 					'goodbye': {
-						text: _('say goodbye'),
+						text: '再见',
 						nextScene: 'end'
 					}
 				}
 			}
-		},
-		audio: AudioLibrary.EVENT_NOMAD
-	},
-	{ /* Noises Outside  --  gain wood/fur */
-		title: _('Noises'),
+		}
+	}, { /* Noises Outside  --  gain wood/fur */
+		title: '噪音',
 		isAvailable: function() {
-			return Engine.activeModule == Room && $SM.get('stores.wood');
+			return Engine.activeModule == Room && $SM.get('stores["木头"]');
 		},
 		scenes: {
 			'start': {
 				text: [
-					_('through the walls, shuffling noises can be heard.'),
-					_("can't tell what they're up to.")
+					'嘈杂声穿墙入耳.',
+					"不知道发生了什么事."
 				],
-				notification: _('strange noises can be heard through the walls'),
-				blink: true,
+				notification: '怪的声音穿墙而来',
 				buttons: {
 					'investigate': {
-						text: _('investigate'),
+						text: '调查',
 						nextScene: { 0.3: 'stuff', 1: 'nothing' }
 					},
 					'ignore': {
-						text: _('ignore them'),
+						text: '无视',
 						nextScene: 'end'
 					}
 				}
 			},
 			'nothing': {
 				text: [
-					_('vague shapes move, just out of sight.'),
-					_('the sounds stop.')
+					'模糊的身影移动着进入了黑暗.',
+					'噪音消失了.'
 				],
 				buttons: {
 					'backinside': {
-						text: _('go back inside'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			},
 			'stuff': {
-				reward: { wood: 100, fur: 10 },
+				reward: { '木头': 100, '毛皮': 10 },
 				text: [
-					_('a bundle of sticks lies just beyond the threshold, wrapped in coarse furs.'),
-					_('the night is silent.')
+					'一大捆用毛皮绑着的木头躺在门槛上.',
+					'黑夜再次趋于宁静.'
 				],
 				buttons: {
 					'backinside': {
-						text: _('go back inside'),
+						text: '离开',
 						nextScene: 'end'
 					}
 				}
 			}
-		},
-		audio: AudioLibrary.EVENT_NOISES_OUTSIDE
+		}
 	},
 	{ /* Noises Inside  --  trade wood for better good */
-		title: _('Noises'),
+		title: '噪音',
 		isAvailable: function() {
-			return Engine.activeModule == Room && $SM.get('stores.wood');
+			return Engine.activeModule == Room && $SM.get('stores["木头"]');
 		},
 		scenes: {
 			start: {
 				text: [
-					_('scratching noises can be heard from the store room.'),
-					_('something\'s in there.')
+			       '摩擦声从储藏室内传来.',
+			       '一定有什么东西在那.'
 				],
-				notification: _('something\'s in the store room'),
-				blink: true,
+				notification: '有东西在储藏室',
 				buttons: {
 					'investigate': {
-						text: _('investigate'),
-						nextScene: { 0.5: 'scales', 0.8: 'teeth', 1: 'cloth' }
+						text: '调查',
+						nextScene: { 0.5: '鳞片', 0.8: '牙齿', 1: '布匹' }
 					},
 					'ignore': {
-						text: _('ignore them'),
+						text: '忽略',
 						nextScene: 'end'
 					}
 				}
 			},
-			scales: {
+			'鳞片': {
 				text: [
-					_('some wood is missing.'),
-					_('the ground is littered with small scales')
-				],
-				onLoad: function() {
-					var numWood = $SM.get('stores.wood', true);
-					numWood = Math.floor(numWood * 0.1);
-					if(numWood === 0) numWood = 1;
-					var numScales = Math.floor(numWood / 5);
-					if(numScales === 0) numScales = 1;
-					$SM.addM('stores', {'wood': -numWood, 'scales': numScales});
-				},
-				buttons: {
-					'leave': {
-						text: _('leave'),
-						nextScene: 'end'
-					}
-				}
+			       '一些木头不见了.',
+			       '地上有很多细小的鳞片'
+			    ],
+			    onLoad: function() {
+			    	var numWood = $SM.get('stores["木头"]', true);
+			    	numWood = Math.floor(numWood * 0.1);
+			    	if(numWood == 0) numWood = 1;
+			    	var numScales = Math.floor(numWood / 5);
+			    	if(numScales == 0) numScales = 1;
+			    	$SM.addM('stores', {'木头': -numWood, '鳞片': numScales});
+			    },
+			    buttons: {
+			    	'leave': {
+			    		text: '离开',
+			    		nextScene: 'end'
+			    	}
+			    }
 			},
-			teeth: {
+			'牙齿': {
 				text: [
-					_('some wood is missing.'),
-					_('the ground is littered with small teeth')
-				],
-				onLoad: function() {
-					var numWood = $SM.get('stores.wood', true);
-					numWood = Math.floor(numWood * 0.1);
-					if(numWood === 0) numWood = 1;
-					var numTeeth = Math.floor(numWood / 5);
-					if(numTeeth === 0) numTeeth = 1;
-					$SM.addM('stores', {'wood': -numWood, 'teeth': numTeeth});
-				},
-				buttons: {
-					'leave': {
-						text: _('leave'),
-						nextScene: 'end'
-					}
-				}
+			       '一些木头丢失了.',
+			       '地面流下了一些破碎的牙齿'
+			    ],
+			    onLoad: function() {
+			    	var numWood = $SM.get('stores["木头"]', true);
+			    	numWood = Math.floor(numWood * 0.1);
+			    	if(numWood == 0) numWood = 1;
+			    	var numTeeth = Math.floor(numWood / 5);
+			    	if(numTeeth == 0) numTeeth = 1;
+			    	$SM.addM('stores', {'木头': -numWood, '牙齿': numTeeth});
+			    },
+			    buttons: {
+			    	'leave': {
+			    		text: '离开',
+			    		nextScene: 'end'
+			    	}
+			    }
 			},
-			cloth: {
+			'布匹': {
 				text: [
-					_('some wood is missing.'),
-					_('the ground is littered with scraps of cloth')
-				],
-				onLoad: function() {
-					var numWood = $SM.get('stores.wood', true);
-					numWood = Math.floor(numWood * 0.1);
-					if(numWood === 0) numWood = 1;
-					var numCloth = Math.floor(numWood / 5);
-					if(numCloth === 0) numCloth = 1;
-					$SM.addM('stores', {'wood': -numWood, 'cloth': numCloth});
-				},
-				buttons: {
-					'leave': {
-						text: _('leave'),
-						nextScene: 'end'
-					}
-				}
+			       '丢失了一些木头.',
+			       '地上有很多碎步屑'
+			    ],
+			    onLoad: function() {
+			    	var numWood = $SM.get('stores["木头"]', true);
+			    	numWood = Math.floor(numWood * 0.1);
+			    	if(numWood == 0) numWood = 1;
+			    	var numCloth = Math.floor(numWood / 5);
+			    	if(numCloth == 0) numCloth = 1;
+			    	$SM.addM('stores', {'木头': -numWood, '布匹': numCloth});
+			    },
+			    buttons: {
+			    	'leave': {
+			    		text: '离开',
+			    		nextScene: 'end'
+			    	}
+			    }
 			}
-		},
-		audio: AudioLibrary.EVENT_NOISES_INSIDE
+		}
 	},
 	{ /* The Beggar  --  trade fur for better good */
-		title: _('The Beggar'),
+		title: '乞丐',
 		isAvailable: function() {
-			return Engine.activeModule == Room && $SM.get('stores.fur');
+			return Engine.activeModule == Room && $SM.get('stores["毛皮"]');
 		},
 		scenes: {
 			start: {
 				text: [
-					_('a beggar arrives.'),
-					_('asks for any spare furs to keep him warm at night.')
+			       '来了一个乞丐.',
+			       '乞求能给他一点暖和身子的皮毛.'
 				],
-				notification: _('a beggar arrives'),
-				blink: true,
+				notification: '来了一个乞丐',
 				buttons: {
 					'50furs': {
-						text: _('give 50'),
-						cost: {fur: 50},
-						nextScene: { 0.5: 'scales', 0.8: 'teeth', 1: 'cloth' }
+						text: '给 50',
+						cost: {'毛皮': 50},
+						nextScene: { 0.5: '鳞片', 0.8: '牙齿', 1: '布匹' }
 					},
 					'100furs': {
-						text: _('give 100'),
-						cost: {fur: 100},
-						nextScene: { 0.5: 'teeth', 0.8: 'scales', 1: 'cloth' }
+						text: '给 100',
+						cost: {'毛皮': 100},
+						nextScene: { 0.5: '牙齿', 0.8: '鳞片', 1: '布匹' }
 					},
 					'deny': {
-						text: _('turn him away'),
+						text: '撵走他',
 						nextScene: 'end'
 					}
 				}
 			},
-			scales: {
-				reward: { scales: 20 },
+			'鳞片': {
+				reward: { '鳞片': 20 },
 				text: [
-					_('the beggar expresses his thanks.'),
-					_('leaves a pile of small scales behind.')
-				],
-				buttons: {
-					'leave': {
-						text: _('say goodbye'),
-						nextScene: 'end'
-					}
-				}
+			       '乞丐感激异常.',
+			       '留下一堆20的鳞片.'
+			    ],
+			    buttons: {
+			    	'leave': {
+			    		text: '再见',
+			    		nextScene: 'end'
+			    	}
+			    }
 			},
-			teeth: {
-				reward: { teeth: 20 },
+			'牙齿': {
+				reward: { '牙齿': 20 },
 				text: [
-					_('the beggar expresses his thanks.'),
-					_('leaves a pile of small teeth behind.')
-				],
-				buttons: {
-					'leave': {
-						text: _('say goodbye'),
-						nextScene: 'end'
-					}
-				}
+			       '乞丐感激异常.',
+			       '留下一堆20的牙齿.'
+			    ],
+			    buttons: {
+			    	'leave': {
+			    		text: '再见',
+			    		nextScene: 'end'
+			    	}
+			    }
 			},
-			cloth: {
-				reward: { cloth: 20 },
+			'布匹': {
+				reward: { '布匹': 20 },
 				text: [
-					_('the beggar expresses his thanks.'),
-					_('leaves some scraps of cloth behind.')
-				],
-				buttons: {
-					'leave': {
-						text: _('say goodbye'),
-						nextScene: 'end'
-					}
-				}
+			       '乞丐感激异常.',
+			       '留下一堆20的布料.'
+			    ],
+			    buttons: {
+			    	'leave': {
+			    		text: '再见',
+			    		nextScene: 'end'
+			    	}
+			    }
 			}
-		},
-		audio: AudioLibrary.EVENT_BEGGAR
+		}
 	},
-	{/* The Shady Builder */
-		title: _('The Shady Builder'),
-		isAvailable: function() {
-			return Engine.activeModule == Room && $SM.get('game.buildings["hut"]', true) >= 5 && $SM.get('game.buildings["hut"]', true) < 20;
-		},
-		scenes: {
-			'start':{
-				text: [
-					_('a shady builder passes through'),
-					_('says he can build you a hut for less wood')
-				],
-				notification: _('a shady builder passes through'),
-				buttons: {
-					'build': {
-						text: _('300 wood'),
-						cost: { 'wood' : 300 },
-						nextScene: {0.6: 'steal', 1: 'build'}
-					},
-					'deny': {
-						text: _('say goodbye'),
-						nextScene: 'end'
-					}
-				}
-			},
-			'steal': {
-				text:[
-					_("the shady builder has made off with your wood")
-				],
-				notification: _('the shady builder has made off with your wood'),
-				buttons: {
-					'end': {
-						text: _('go home'),
-						nextScene: 'end'
-					}
-				}
-			},
-			'build': {
-				text:[
-					_("the shady builder builds a hut")
-				],
-				notification: _('the shady builder builds a hut'),
-				onLoad: function() {
-					var n = $SM.get('game.buildings["hut"]', true);
-					if(n < 20){
-						$SM.set('game.buildings["hut"]',n+1);
-					}
-				},
-				buttons: {
-					'end': {
-						text: _('go home'),
-						nextScene: 'end'
-					}
-				}
-			}
-		},
-		audio: AudioLibrary.EVENT_SHADY_BUILDER
-	},
-
+	
 	{ /* Mysterious Wanderer  --  wood gambling */
-		title: _('The Mysterious Wanderer'),
+		title: '神秘流浪者',
 		isAvailable: function() {
-			return Engine.activeModule == Room && $SM.get('stores.wood');
+			return Engine.activeModule == Room && $SM.get('stores["木头"]');
 		},
 		scenes: {
 			start: {
 				text: [
-					_('a wanderer arrives with an empty cart. says if he leaves with wood, he\'ll be back with more.'),
-					_("builder's not sure he's to be trusted.")
+			       '一个流浪汉带着一个空筐子来到了木屋, 说如果能给她一些木头带走, 他之后会带来更多.',
+			       "工人不知道他是否值得信任."
 				],
-				notification: _('a mysterious wanderer arrives'),
-				blink: true,
+				notification: '一个神秘的流浪汉抵达',
 				buttons: {
-					'wood100': {
-						text: _('give 100'),
-						cost: {wood: 100},
-						nextScene: { 1: 'wood100'}
+					'100wood': {
+						text: '给 100',
+						cost: {'木头': 100},
+						nextScene: { 1: '100wood'}
 					},
-					'wood500': {
-						text: _('give 500'),
-						cost: {wood: 500},
-						nextScene: { 1: 'wood500' }
+					'500wood': {
+						text: '给 500',
+						cost: {'木头': 500},
+						nextScene: { 1: '500wood' }
 					},
 					'deny': {
-						text: _('turn him away'),
+						text: '撵走他',
 						nextScene: 'end'
 					}
 				}
 			},
-			'wood100': {
+			'100wood': {
 				text: [
-					_('the wanderer leaves, cart loaded with wood')
-				],
-				action: function(inputDelay) {
-					var delay = inputDelay || false;
-					Events.saveDelay(function() {
-						$SM.add('stores.wood', 300);
-						Notifications.notify(Room, _('the mysterious wanderer returns, cart piled high with wood.'));
-					}, 'Room[4].scenes.wood100.action', delay);
-				},
-				onLoad: function() {
-					if(Math.random() < 0.5) {
-						this.action(60);
-					}
-				},
-				buttons: {
-					'leave': {
-						text: _('say goodbye'),
-						nextScene: 'end'
-					}
-				}
+			       '流浪汉离开了, 筐子满载木头'
+			    ],
+			    onLoad: function() {
+			    	if(Math.random() < 0.5) {
+			    		setTimeout(function() {
+			    			$SM.add('stores["木头"]', 300);
+			    			Notifications.notify(Room, '流浪女回来了, 带回来了300的木头.');
+			    		}, 60 * 1000);
+			    	}
+			    },
+			    buttons: {
+			    	'leave': {
+			    		text: '再见',
+			    		nextScene: 'end'
+			    	}
+			    }
 			},
-			'wood500': {
+			'500wood': {
 				text: [
-					_('the wanderer leaves, cart loaded with wood')
-				],
-				action: function(inputDelay) {
-					var delay = inputDelay || false;
-					Events.saveDelay(function() {
-						$SM.add('stores.wood', 1500);
-						Notifications.notify(Room, _('the mysterious wanderer returns, cart piled high with wood.'));
-					}, 'Room[4].scenes.wood500.action', delay);
-				},
-				onLoad: function() {
-					if(Math.random() < 0.3) {
-						this.action(60);
-					}
-				},
-				buttons: {
-					'leave': {
-						text: _('say goodbye'),
-						nextScene: 'end'
-					}
-				}
+				       '流浪汉离开了, 筐子满载木头'
+			    ],
+			    onLoad: function() {
+			    	if(Math.random() < 0.3) {
+			    		setTimeout(function() {
+			    			$SM.add('stores["木头"]', 1500);
+			    			Notifications.notify(Room, '流浪女回来了, 带回来了1500的木头.');
+			    		}, 60 * 1000);
+			    	}
+			    },
+			    buttons: {
+			    	'leave': {
+			    		text: '再见',
+			    		nextScene: 'end'
+			    	}
+			    }
 			}
-		},
-		audio: AudioLibrary.EVENT_MYSTERIOUS_WANDERER
+		}
 	},
-
+	
 	{ /* Mysterious Wanderer  --  fur gambling */
-		title: _('The Mysterious Wanderer'),
+		title: '神秘流浪者',
 		isAvailable: function() {
-			return Engine.activeModule == Room && $SM.get('stores.fur');
+			return Engine.activeModule == Room && $SM.get('stores["毛皮"]');
 		},
 		scenes: {
 			start: {
 				text: [
-					_('a wanderer arrives with an empty cart. says if she leaves with furs, she\'ll be back with more.'),
-					_("builder's not sure she's to be trusted.")
+			       '一个流浪女带着一个空筐子来到了木屋, 说如果能给她一些皮毛带走, 她之后会带来更多.',
+			       "工人不知道她是否值得信任."
 				],
-				notification: _('a mysterious wanderer arrives'),
-				blink: true,
+				notification: '一个神秘的流浪女抵达',
 				buttons: {
-					'fur100': {
-						text: _('give 100'),
-						cost: {fur: 100},
-						nextScene: { 1: 'fur100'}
+					'100fur': {
+						text: '给 100',
+						cost: {'毛皮': 100},
+						nextScene: { 1: '100fur'}
 					},
-					'fur500': {
-						text: _('give 500'),
-						cost: {fur: 500},
-						nextScene: { 1: 'fur500' }
+					'500fur': {
+						text: '给 500',
+						cost: {'毛皮': 500},
+						nextScene: { 1: '500fur' }
 					},
 					'deny': {
-						text: _('turn her away'),
+						text: '撵走她',
 						nextScene: 'end'
 					}
 				}
 			},
-			'fur100': {
+			'100fur': {
 				text: [
-					_('the wanderer leaves, cart loaded with furs')
-				],
-				action: function(inputDelay) {
-					var delay = inputDelay || false;
-					Events.saveDelay(function() {
-						$SM.add('stores.fur', 300);
-						Notifications.notify(Room, _('the mysterious wanderer returns, cart piled high with furs.'));
-					}, 'Room[5].scenes.fur100.action', delay);
-				},
-				onLoad: function() {
-					if(Math.random() < 0.5) {
-						this.action(60);
-					}
-				},
-				buttons: {
-					'leave': {
-						text: _('say goodbye'),
-						nextScene: 'end'
-					}
-				}
+			       '流浪女离开了, 筐子满载皮毛'
+			    ],
+			    onLoad: function() {
+			    	if(Math.random() < 0.5) {
+			    		setTimeout(function() {
+			    			$SM.add('stores["毛皮"]', 300);
+			    			Notifications.notify(Room, '流浪女回来了, 带回来了300的皮毛.');
+			    		}, 60 * 1000);
+			    	}
+			    },
+			    buttons: {
+			    	'leave': {
+			    		text: '再见',
+			    		nextScene: 'end'
+			    	}
+			    }
 			},
-			'fur500': {
+			'500fur': {
 				text: [
-					_('the wanderer leaves, cart loaded with furs')
-				],
-				action: function(inputDelay) {
-					var delay = inputDelay || false;
-					Events.saveDelay(function() {
-						$SM.add('stores.fur', 1500);
-						Notifications.notify(Room, _('the mysterious wanderer returns, cart piled high with furs.'));
-					}, 'Room[5].scenes.fur500.action', delay);
-				},
-				onLoad: function() {
-					if(Math.random() < 0.3) {
-						this.action(60);
-					}
-				},
-				buttons: {
-					'leave': {
-						text: _('say goodbye'),
-						nextScene: 'end'
-					}
-				}
+				       '流浪女离开了, 筐子满载皮毛'
+			    ],
+			    onLoad: function() {
+			    	if(Math.random() < 0.3) {
+			    		setTimeout(function() {
+			    			$SM.add('stores["毛皮"]', 1500);
+			    			Notifications.notify(Room, '流浪女回来了, 带回来了1500的皮毛');
+			    		}, 60 * 1000);
+			    	}
+			    },
+			    buttons: {
+			    	'leave': {
+			    		text: '再见',
+			    		nextScene: 'end'
+			    	}
+			    }
 			}
-		},
-		audio: AudioLibrary.EVENT_MYSTERIOUS_WANDERER
+		}
 	},
-
+	
 	{ /* The Scout  --  Map Merchant */
-		title: _('The Scout'),
+		title: '侦察兵',
 		isAvailable: function() {
 			return Engine.activeModule == Room && $SM.get('features.location.world');
 		},
 		scenes: {
 			'start': {
 				text: [
-					_("the scout says she's been all over."),
-					_("willing to talk about it, for a price.")
+					"这个侦察兵说她已经去过所有的地图了.",
+					"她愿意谈谈地图, 当然不是免费的."
 				],
-				notification: _('a scout stops for the night'),
-				blink: true,
+				notification: '一个侦察兵在夜幕中到来',
 				buttons: {
 					'buyMap': {
-						text: _('buy map'),
-						cost: { 'fur': 200, 'scales': 10 },
-						available: function() {
-							return !World.seenAll;
-						},
-						notification: _('the map uncovers a bit of the world'),
+						text: '购买地图',
+						cost: { '毛皮': 200, '鳞片': 10 },
+						notification: '地图包含大地图的一角',
 						onChoose: World.applyMap
 					},
 					'learn': {
-						text: _('learn scouting'),
-						cost: { 'fur': 1000, 'scales': 50, 'teeth': 20 },
+						text: '学习侦察',
+						cost: { '毛皮': 1000, '鳞片': 50, '牙齿': 20 },
 						available: function() {
-							return !$SM.hasPerk('scout');
+							return !$SM.hasPerk('千里眼');
 						},
 						onChoose: function() {
-							$SM.addPerk('scout');
+							$SM.addPerk('千里眼');
 						}
 					},
 					'leave': {
-						text: _('say goodbye'),
-						nextScene: 'end'
-					}
+			    		text: '离开',
+			    		nextScene: 'end'
+			    	}
 				}
 			}
-		},
-		audio: AudioLibrary.EVENT_SCOUT
+		}
 	},
-
+	
 	{ /* The Wandering Master */
-		title: _('The Master'),
+		title: '大师',
 		isAvailable: function() {
 			return Engine.activeModule == Room && $SM.get('features.location.world');
 		},
 		scenes: {
 			'start': {
 				text: [
-					_('an old wanderer arrives.'),
-					_('he smiles warmly and asks for lodgings for the night.')
+					'一个年老的流浪汉出现了',
+					'他微笑着青请求寄宿过夜.'
 				],
-				notification: _('an old wanderer arrives'),
-				blink: true,
+				notification: '一个年老的流浪汉出现了',
 				buttons: {
 					'agree': {
-						text: _('agree'),
+						text: '同意',
 						cost: {
-							'cured meat': 100,
-							'fur': 100,
-							'torch': 1
+							'腌肉': 100,
+							'毛皮': 100,
+							'火炬': 1
 						},
 						nextScene: {1: 'agree'}
 					},
 					'deny': {
-						text: _('turn him away'),
+						text: '撵走他',
 						nextScene: 'end'
 					}
 				}
 			},
 			'agree': {
 				text: [
-					_('in exchange, the wanderer offers his wisdom.')
-				],
-				buttons: {
-					'evasion': {
-						text: _('evasion'),
-						available: function() {
-							return !$SM.hasPerk('evasive');
-						},
-						onChoose: function() {
-							$SM.addPerk('evasive');
-						},
-						nextScene: 'end'
-					},
-					'precision': {
-						text: _('precision'),
-						available: function() {
-							return !$SM.hasPerk('precise');
-						},
-						onChoose: function() {
-							$SM.addPerk('precise');
-						},
-						nextScene: 'end'
-					},
-					'force': {
-						text: _('force'),
-						available: function() {
-							return !$SM.hasPerk('barbarian');
-						},
-						onChoose: function() {
-							$SM.addPerk('barbarian');
-						},
-						nextScene: 'end'
-					},
-					'nothing': {
-						text: _('nothing'),
-						nextScene: 'end'
-					}
-				}
+			       '作为交换, 老流浪汉分享了他的智慧.'
+		        ],
+		        buttons: {
+		        	'evasion': {
+		        		text: '逃脱术',
+		        		available: function() {
+		        			return !$SM.hasPerk('凌波微步');
+		        		},
+		        		onChoose: function() {
+		        			$SM.addPerk('凌波微步');
+		        		},
+		        		nextScene: 'end'
+		        	},
+		        	'precision': {
+		        		text: '精准术',
+		        		available: function() {
+		        			return !$SM.hasPerk('兰花佛穴手');
+		        		},
+		        		onChoose: function() {
+		        			$SM.addPerk('兰花佛穴手');
+		        		},
+		        		nextScene: 'end'
+		        	},
+		        	'force': {
+		        		text: '力量大师',
+		        		available: function() {
+		        			return !$SM.hasPerk('降龙十八掌');
+		        		},
+		        		onChoose: function() {
+		        			$SM.addPerk('降龙十八掌');
+		        		},
+		        		nextScene: 'end'
+		        	},
+		        	'nothing': {
+		        		text: '无视',
+		        		nextScene: 'end'
+		        	}
+		        }
 			}
-		},
-		audio: AudioLibrary.EVENT_WANDERING_MASTER
+		}
 	},
-
+		
 	{ /* The Sick Man */
-		title: _('The Sick Man'),
-		isAvailable: function() {
-			return Engine.activeModule == Room && $SM.get('stores.medicine', true) > 0;
-		},
-		scenes: {
-			'start': {
-				text: [
-					_("a man hobbles up, coughing."),
-					_("he begs for medicine.")
-				],
-				notification: _('a sick man hobbles up'),
-				blink: true,
-				buttons: {
-					'help': {
-						text: _('give 1 medicine'),
-						cost: { 'medicine': 1 },
-						notification: _('the man swallows the medicine eagerly'),
-						nextScene: { 0.1: 'alloy', 0.3: 'cells', 0.5: 'scales', 1.0: 'nothing' }
-					},
-					'ignore': {
-						text: _('tell him to leave'),
-						nextScene: 'end'
-					}
-				}
-			},
-			'alloy': {
-				text: [
-					_("the man is thankful."),
-					_('he leaves a reward.'),
-					_('some weird metal he picked up on his travels.')
-				],
-				onLoad: function() {
-					$SM.add('stores["alien alloy"]', 1);
-				},
-				buttons: {
-					'bye': {
-						text: _('say goodbye'),
-						nextScene: 'end'
-					}
-				}
-			},
-			'cells': {
-				text: [
-					_("the man is thankful."),
-					_('he leaves a reward.'),
-					_('some weird glowing boxes he picked up on his travels.')
-				],
-				onLoad: function() {
-					$SM.add('stores["energy cell"]', 3);
-				},
-				buttons: {
-					'bye': {
-						text: _('say goodbye'),
-						nextScene: 'end'
-					}
-				}
-			},
-			'scales': {
-				text: [
-					_("the man is thankful."),
-					_('he leaves a reward.'),
-					_('all he has are some scales.')
-				],
-				onLoad: function() {
-					$SM.add('stores.scales', 5);
-				},
-				buttons: {
-					'bye': {
-						text: _('say goodbye'),
-						nextScene: 'end'
-					}
-				}
-			},
-			'nothing': {
-				text: [
-					_("the man expresses his thanks and hobbles off.")
-				],
-				buttons: {
-					'bye': {
-						text: _('say goodbye'),
-						nextScene: 'end'
-					}
-				}
-			}
-		},
-		audio: AudioLibrary.EVENT_SICK_MAN
+  		title: '病人',
+  		isAvailable: function() {
+  			return Engine.activeModule == Room && $SM.get('stores["医疗药剂"]', true) > 0;
+  		},
+  		scenes: {
+  			'start': {
+  				text: [
+  					"一个男人躬着身, 咳嗽.",
+  					"他乞求一些治疗药剂."
+  				],
+  				notification: '一个病人蹒跚而至',
+  				buttons: {
+  					'help': {
+  						text: '给 1 治疗药剂',
+  						cost: { '医疗药剂': 1 },
+  						notification: '这个男人狼吞虎咽喝掉了治疗药剂',
+  						nextScene: { 0.1: 'alloy', 0.3: 'cells', 0.5: '鳞片', 1.0: 'nothing' }
+  					},
+  					'ignore': {
+  						text: '撵他走',
+  						nextScene: 'end'
+  					}
+  				}
+  			},
+  			'alloy': {
+  				text: [
+  					"这个男人很感激.",
+  					'他留下了他的反馈.',
+  					'在他旅行中获得的一些奇怪的金属.'
+  				],
+  				onLoad: function() {
+  					$SM.add('stores["外星合金"]', 1);
+			    },
+  				buttons: {
+  					'bye': {
+  						text: '再见',
+  						nextScene: 'end'
+  					}
+  				}
+  			},
+  			'cells': {
+  				text: [
+  					"这个男人很感激.",
+  					'他留下了他的反馈.',
+  					'在他旅行中获得的一些奇怪的发光盒子.'
+  				],
+  				onLoad: function() {
+  					$SM.add('stores["燃料电池"]', 3);
+			    },
+  				buttons: {
+  					'bye': {
+  						text: '再见',
+  						nextScene: 'end'
+  					}
+  				}
+  			},
+  			'鳞片': {
+  				text: [
+  					"这个男人很感激.",
+  					'他留下了他的反馈.',
+  					'在他旅行中获得的一些鳞片.'
+  				],
+  				onLoad: function() {
+  					$SM.add('stores["鳞片"]', 5);
+			    },
+  				buttons: {
+  					'bye': {
+  						text: '再见',
+  						nextScene: 'end'
+  					}
+  				}
+  			},
+  			'nothing': {
+  				text: [
+  					"这个男人感谢异常, 挥手告别, 留下一根毛."
+  				],
+  				buttons: {
+  					'bye': {
+  						text: '再见',
+  						nextScene: 'end'
+  					}
+  				}
+  		  }
+  	}
 	}
 ];

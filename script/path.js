@@ -1,17 +1,17 @@
 var Path = {
+		
 	DEFAULT_BAG_SPACE: 10,
-	_STORES_OFFSET: 0,
+	
 	// Everything not in this list weighs 1
 	Weight: {
-		'bone spear': 2,
-		'iron sword': 3,
-		'steel sword': 5,
-		'rifle': 5,
-		'bullets': 0.1,
-		'energy cell': 0.2,
-		'laser rifle': 5,
-    'plasma rifle': 5,
-		'bolas': 0.5,
+		'骨枪': 2,
+		'铁剑': 3,
+		'钢剑': 5,
+		'步枪': 5,
+		'子弹': 0.1,
+		'燃料电池': 0.2,
+		'镭射枪': 5,
+		'链球': 0.5
 	},
 		
 	name: 'Path',
@@ -26,29 +26,27 @@ var Path = {
 		World.init();
 		
 		// Create the path tab
-		this.tab = Header.addLocation(_("A Dusty Path"), "path", Path);
+		this.tab = Header.addLocation("探索者尘路", "path", Path);
 		
 		// Create the Path panel
 		this.panel = $('<div>').attr('id', "pathPanel")
 			.addClass('location')
 			.appendTo('div#locationSlider');
-
-		this.scroller = $('<div>').attr('id', 'pathScroller').appendTo(this.panel);
 		
 		// Add the outfitting area
-		var outfitting = $('<div>').attr({'id': 'outfitting', 'data-legend': _('supplies:')}).appendTo(this.scroller);
+		var outfitting = $('<div>').attr('id', 'outfitting').appendTo(this.panel);
 		$('<div>').attr('id', 'bagspace').appendTo(outfitting);
 		
 		// Add the embark button
 		new Button.Button({
 			id: 'embarkButton',
-			text: _("embark"),
+			text: "出发",
 			click: Path.embark,
 			width: '80px',
 			cooldown: World.DEATH_COOLDOWN
-		}).appendTo(this.scroller);
+		}).appendTo(this.panel);
 		
-		Path.outfit = $SM.get('outfit');
+		Path.outfit = {};
 		
 		Engine.updateSlider();
 		
@@ -59,7 +57,7 @@ var Path = {
 	openPath: function() {
 		Path.init();
 		Engine.event('progress', 'path');
-		Notifications.notify(Room, _('the compass points ' + World.dir));
+		Notifications.notify(Room, '罗盘指向 ' + World.dir);
 	},
 	
 	getWeight: function(thing) {
@@ -70,13 +68,11 @@ var Path = {
 	},
 	
 	getCapacity: function() {
-		if($SM.get('stores["cargo drone"]', true) > 0) {
-			return Path.DEFAULT_BAG_SPACE + 100;
-		} else if($SM.get('stores.convoy', true) > 0) {
-			return Path.DEFAULT_BAG_SPACE + 60;
-		} else if($SM.get('stores.wagon', true) > 0) {
+		if($SM.get('stores["大货车"]', true) > 0) {		//same  
+			return Path.DEFAULT_BAG_SPACE + 60;   //tim test, should be 60
+		} else if($SM.get('stores["货车"]', true) > 0) { 			//same
 			return Path.DEFAULT_BAG_SPACE + 30;
-		} else if($SM.get('stores.rucksack', true) > 0) {
+		} else if($SM.get('stores["旅行包"]', true) > 0) {  //tim mark, in case of bug stores.rucksack
 			return Path.DEFAULT_BAG_SPACE + 10;
 		}
 		return Path.DEFAULT_BAG_SPACE;
@@ -97,30 +93,30 @@ var Path = {
 		return Path.getCapacity() - num;
 	},
 	
-	updatePerks: function(ignoreStores) {
+	updatePerks: function() {
 		if($SM.get('character.perks')) {
 			var perks = $('#perks');
 			var needsAppend = false;
-			if(perks.length === 0) {
+			if(perks.length == 0) {
 				needsAppend = true;
-				perks = $('<div>').attr({'id': 'perks', 'data-legend': _('perks')});
+				perks = $('<div>').attr('id', 'perks');
 			}
 			for(var k in $SM.get('character.perks')) {
 				var id = 'perk_' + k.replace(' ', '-');
 				var r = $('#' + id);
-				if($SM.get('character.perks["'+k+'"]') && r.length === 0) {
+				if($SM.get('character.perks["'+k+'"]') && r.length == 0) {
 					r = $('<div>').attr('id', id).addClass('perkRow').appendTo(perks);
-					$('<div>').addClass('row_key').text(_(k)).appendTo(r);
+					$('<div>').addClass('row_key').text(k).appendTo(r);
 					$('<div>').addClass('tooltip bottom right').text(Engine.Perks[k].desc).appendTo(r);
 				}
 			}
 			
 			if(needsAppend && perks.children().length > 0) {
-				perks.prependTo(Path.panel);
+				perks.appendTo(Path.panel);
 			}
 			
-			if(!ignoreStores && Engine.activeModule === Path) {
-				$('#storesContainer').css({top: perks.height() + 26 + Path._STORES_OFFSET + 'px'});
+			if(Engine.activeModule === Path) {
+				$('#storesContainer').css({top: perks.height() + 26 + 'px'});
 			}
 		}
 	},
@@ -133,19 +129,17 @@ var Path = {
 		}
 		
 		// Add the armour row
-		var armour = _("none");
-    if($SM.get('stores["kinetic armour"]', true) > 0)
-			armour = _("kinetic");
-		else if($SM.get('stores["s armour"]', true) > 0)
-			armour = _("steel");
-		else if($SM.get('stores["i armour"]', true) > 0)
-			armour = _("iron");
-		else if($SM.get('stores["l armour"]', true) > 0)
-			armour = _("leather");
+		var armour = "none";
+		if($SM.get('stores["钢甲"]', true) > 0)
+			armour = "钢甲";
+		else if($SM.get('stores["铁甲"]', true) > 0)
+			armour = "铁甲";
+		else if($SM.get('stores["皮甲"]', true) > 0)
+			armour = "皮甲";
 		var aRow = $('#armourRow');
-		if(aRow.length === 0) {
+		if(aRow.length == 0) {
 			aRow = $('<div>').attr('id', 'armourRow').addClass('outfitRow').prependTo(outfit);
-			$('<div>').addClass('row_key').text(_('armour')).appendTo(aRow);
+			$('<div>').addClass('row_key').text('防护装甲').appendTo(aRow);
 			$('<div>').addClass('row_val').text(armour).appendTo(aRow);
 			$('<div>').addClass('clear').appendTo(aRow);
 		} else {
@@ -154,106 +148,96 @@ var Path = {
 		
 		// Add the water row
 		var wRow = $('#waterRow');
-		if(wRow.length === 0) {
+		if(wRow.length == 0) {
 			wRow = $('<div>').attr('id', 'waterRow').addClass('outfitRow').insertAfter(aRow);
-			$('<div>').addClass('row_key').text(_('water')).appendTo(wRow);
+			$('<div>').addClass('row_key').text('水').appendTo(wRow);
 			$('<div>').addClass('row_val').text(World.getMaxWater()).appendTo(wRow);
 			$('<div>').addClass('clear').appendTo(wRow);
 		} else {
 			$('.row_val', wRow).text(World.getMaxWater());
 		}
 		
+		
 		var space = Path.getFreeSpace();
-		var currentBagCapacity = 0;
+		var total = 0;
 		// Add the non-craftables to the craftables
 		var carryable = $.extend({
-			'cured meat': { type: 'tool', desc: _('restores') + ' ' + World.MEAT_HEAL + ' ' + _('hp') },
-			'bullets': { type: 'tool', desc: _('use with rifle') },
-			'grenade': {type: 'weapon' },
-			'bolas': {type: 'weapon' },
-			'laser rifle': {type: 'weapon' },
-			'energy cell': {type: 'tool', desc: _('emits a soft red glow') },
-			'bayonet': {type: 'weapon' },
-			'charm': {type: 'tool'},
-			'alien alloy': { type: 'tool' },
-			'medicine': {type: 'tool', desc: _('restores') + ' ' + World.MEDS_HEAL + ' ' + _('hp') }
-		}, Room.Craftables, Fabricator.Craftables);
+			'腌肉': { type: 'tool' },
+			'子弹': { type: 'tool' },
+			'手雷': {type: 'weapon' },
+			'链球': {type: 'weapon' },
+			'镭射枪': {type: 'weapon' },
+			'燃料电池': {type: 'tool' },
+			'刺刀': {type: 'weapon' },
+			'护身符': {type: 'tool'},
+			'医疗药剂': {type: 'tool'}
+		}, Room.Craftables);
 		
 		for(var k in carryable) {
-			var lk = _(k);
 			var store = carryable[k];
 			var have = $SM.get('stores["'+k+'"]');
 			var num = Path.outfit[k];
 			num = typeof num == 'number' ? num : 0;
-			if (have !== undefined) {
-				if (have < num) { num = have; }
-				$SM.set(k, num, true);
-			}
-
+			var numAvailable = $SM.get('stores["'+k+'"]', true);
 			var row = $('div#outfit_row_' + k.replace(' ', '-'), outfit);
 			if((store.type == 'tool' || store.type == 'weapon') && have > 0) {
-				currentBagCapacity += num * Path.getWeight(k);
-				if(row.length === 0) {
-					row = Path.createOutfittingRow(k, num, store, store.name);
+				total += num * Path.getWeight(k);
+				if(row.length == 0) {
+					row = Path.createOutfittingRow(k, num);
 					
 					var curPrev = null;
 					outfit.children().each(function(i) {
 						var child = $(this);
-						if(child.attr('id').indexOf('outfit_row_') === 0) {
-							var cName = child.children('.row_key').text();
-							if(cName < lk) {
-								curPrev = child.attr('id');
+						if(child.attr('id').indexOf('outfit_row_') == 0) {
+							var cName = child.attr('id').substring(11).replace('-', ' ');
+							if(cName < k && (curPrev == null || cName > curPrev)) {
+								curPrev = cName;
 							}
 						}
 					});
 					if(curPrev == null) {
 						row.insertAfter(wRow);
-					} else {
-						row.insertAfter(outfit.find('#' + curPrev));
+					} 
+					else 
+					{
+						row.insertAfter(outfit.find('#outfit_row_' + curPrev.replace(' ', '-')));
 					}
 				} else {
 					$('div#' + row.attr('id') + ' > div.row_val > span', outfit).text(num);
-					$('div#' + row.attr('id') + ' .tooltip .numAvailable', outfit).text(have - num);
+					$('div#' + row.attr('id') + ' .tooltip .numAvailable', outfit).text(numAvailable - num);
 				}
-				if(num === 0) {
+				if(num == 0) {
 					$('.dnBtn', row).addClass('disabled');
 					$('.dnManyBtn', row).addClass('disabled');
 				} else {
 					$('.dnBtn', row).removeClass('disabled');
 					$('.dnManyBtn', row).removeClass('disabled');
 				}
-				if(num == have || space < Path.getWeight(k)) {
+				if(num >= numAvailable || space < Path.getWeight(k)) {
 					$('.upBtn', row).addClass('disabled');
 					$('.upManyBtn', row).addClass('disabled');
-				} else {
+				} else if(space >= Path.getWeight(k)) {
 					$('.upBtn', row).removeClass('disabled');
 					$('.upManyBtn', row).removeClass('disabled');
 				}
-			} else if(have === 0 && row.length > 0) {
+			} else if(have == 0 && row.length > 0) {
 				row.remove();
 			}
 		}
-
-		Path.updateBagSpace(currentBagCapacity);
-
-	},
-
-	updateBagSpace: function(currentBagCapacity) {
+		
 		// Update bagspace
-		$('#bagspace').text(_('free {0}/{1}', Math.floor(Path.getCapacity() - currentBagCapacity) , Path.getCapacity()));
-
-		if(Path.outfit['cured meat'] > 0) {
+		$('#bagspace').text('容量 ' + Math.floor(Path.getCapacity() - total) + '/' + Path.getCapacity());
+		
+		if(Path.outfit['腌肉'] > 0) {
 			Button.setDisabled($('#embarkButton'), false);
 		} else {
 			Button.setDisabled($('#embarkButton'), true);
 		}
-
 	},
 	
-	createOutfittingRow: function(key, num, store) {
-		if(!store.name) store.name = _(key);
-		var row = $('<div>').attr('id', 'outfit_row_' + key.replace(' ', '-')).addClass('outfitRow').attr('key',key);
-		$('<div>').addClass('row_key').text(store.name).appendTo(row);
+	createOutfittingRow: function(name, num) {
+		var row = $('<div>').attr('id', 'outfit_row_' + name.replace(' ', '-')).addClass('outfitRow');
+		$('<div>').addClass('row_key').text(name).appendTo(row);
 		var val = $('<div>').addClass('row_val').appendTo(row);
 		
 		$('<span>').text(num).appendTo(val);
@@ -263,46 +247,37 @@ var Path = {
 		$('<div>').addClass('dnManyBtn').appendTo(val).click([10], Path.decreaseSupply);
 		$('<div>').addClass('clear').appendTo(row);
 		
-		var numAvailable = $SM.get('stores["'+key+'"]', true);
+		var numAvailable = $SM.get('stores["'+name+'"]', true);
 		var tt = $('<div>').addClass('tooltip bottom right').appendTo(row);
-
-		if(store.type == 'weapon') {
-			$('<div>').addClass('row_key').text(_('damage')).appendTo(tt);
-			$('<div>').addClass('row_val').text(World.getDamage(key)).appendTo(tt);
-		} else if(store.type == 'tool' && store.desc != "undefined") {
-			$('<div>').addClass('row_key').text(store.desc).appendTo(tt);
-		}
-
-		$('<div>').addClass('row_key').text(_('weight')).appendTo(tt);
-		$('<div>').addClass('row_val').text(Path.getWeight(key)).appendTo(tt);
-		$('<div>').addClass('row_key').text(_('available')).appendTo(tt);
+		$('<div>').addClass('row_key').text('重量').appendTo(tt);
+		$('<div>').addClass('row_val').text(Path.getWeight(name)).appendTo(tt);
+		$('<div>').addClass('row_key').text('库存').appendTo(tt);
 		$('<div>').addClass('row_val').addClass('numAvailable').text(numAvailable).appendTo(tt);
 		
 		return row;
 	},
 	
-	increaseSupply: function(btn) {
-		var supply = $(this).closest('.outfitRow').attr('key');
+  increaseSupply: function(btn) {
+		var supply = $(this).closest('.outfitRow').children('.row_key').text().replace('-', ' ');
 		Engine.log('increasing ' + supply + ' by up to ' + btn.data);
 		var cur = Path.outfit[supply];
 		cur = typeof cur == 'number' ? cur : 0;
 		if(Path.getFreeSpace() >= Path.getWeight(supply) && cur < $SM.get('stores["'+supply+'"]', true)) {
-			var maxExtraByWeight = Math.floor(Path.getFreeSpace() / Path.getWeight(supply));
-			var maxExtraByStore  = $SM.get('stores["'+supply+'"]', true) - cur;
-			Path.outfit[supply] = cur + Math.min(btn.data, maxExtraByWeight, maxExtraByStore);
-			$SM.set('outfit['+supply+']', Path.outfit[supply]);
+		  var maxExtraByWeight = Math.floor(Path.getFreeSpace() / Path.getWeight(supply));
+		  var maxExtraByStore  = $SM.get('stores["'+supply+'"]', true) - cur;
+		  var maxExtraByBtn    = btn.data;
+			Path.outfit[supply] = cur + Math.min(maxExtraByBtn, Math.min(maxExtraByWeight, maxExtraByStore));
 			Path.updateOutfitting();
 		}
 	},
 	
 	decreaseSupply: function(btn) {
-		var supply = $(this).closest('.outfitRow').attr('key');
+		var supply = $(this).closest('.outfitRow').children('.row_key').text().replace('-', ' ');
 		Engine.log('decreasing ' + supply + ' by up to ' + btn.data);
 		var cur = Path.outfit[supply];
 		cur = typeof cur == 'number' ? cur : 0;
 		if(cur > 0) {
 			Path.outfit[supply] = Math.max(0, cur - btn.data);
-			$SM.set('outfit['+supply+']', Path.outfit[supply]);
 			Path.updateOutfitting();
 		}
 	},
@@ -310,15 +285,13 @@ var Path = {
 	onArrival: function(transition_diff) {
 		Path.setTitle();
 		Path.updateOutfitting();
-		Path.updatePerks(true);
-		
-		AudioEngine.playBackgroundMusic(AudioLibrary.MUSIC_DUSTY_PATH);
+		Path.updatePerks();
 
 		Engine.moveStoresView($('#perks'), transition_diff);
 	},
 	
 	setTitle: function() {
-		document.title = _('A Dusty Path');
+		document.title = '探索者尘路';
 	},
 	
 	embark: function() {
@@ -328,14 +301,11 @@ var Path = {
 		World.onArrival();
 		$('#outerSlider').animate({left: '-700px'}, 300);
 		Engine.activeModule = World;
-		AudioEngine.playSound(AudioLibrary.EMBARK);
 	},
 	
 	handleStateUpdates: function(e){
-		if(e.category == 'character' && e.stateName.indexOf('character.perks') === 0 && Engine.activeModule == Path){
+		if(e.category == 'character' && e.stateName.indexOf('character.perks') == 0 && Engine.activeModule == Path){
 			Path.updatePerks();
-		} else if(e.category == 'income' && Engine.activeModule == Path){
-			Path.updateOutfitting();
-		}
+		};
 	}
 };
